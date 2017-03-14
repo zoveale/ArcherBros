@@ -2,7 +2,9 @@
 #define GAMEOBJECT_H
 
 #include <SDL.h>
+#include <SDL_image.h>
 #include <string>
+#include <iostream>
 #include "../include/Input.h"
 
 class GameObject
@@ -16,7 +18,7 @@ private:
 public:
 	GameObject();
 
-	void Initialization(std::string path);
+	void Initialization(std::string path, int x, int y, int w, int h);
 	void Update();
 	void Draw();
 	void SetRenderer(const SDL_Renderer* renderer);

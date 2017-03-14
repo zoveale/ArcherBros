@@ -6,8 +6,17 @@ GameObject::GameObject()
 {
 }
 
-void GameObject::Initialization(std::string path)
+void GameObject::Initialization(std::string path,
+	int x, int y, int w, int h)
 {
+	SDL_Surface* surface = IMG_Load(path.c_str());
+	if (surface == NULL) { std::cout << SDL_GetError(); }
+
+	texture = SDL_CreateTextureFromSurface(renderer, surface);
+	if (texture == NULL) { std::cout << SDL_GetError(); }
+
+	SDL_FreeSurface(surface);
+	rect = { x, y, w, h };
 }
 
 void GameObject::Update()

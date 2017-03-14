@@ -4,6 +4,7 @@
 #include <iostream>
 #include <SDL.h>
 #include "../include/Input.h"
+#include <SDL_image.h>
 
 class System
 {
