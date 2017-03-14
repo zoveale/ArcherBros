@@ -42,7 +42,12 @@ void System::GameLoop()
 
 void System::Close()
 {
+	//Quit SDL subsystems
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	SDL_Quit();
 }
+
 
 
 System::~System()
