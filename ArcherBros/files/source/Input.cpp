@@ -21,34 +21,39 @@ void Input::Process()
 		}
 		if (event.type == SDL_KEYDOWN && 
 			event.key.keysym.sym == SDLK_UP) {
-			KEY_STATE.UP = true;
+			KEY.UP = true;
 		}
 		else { 
-			KEY_STATE.UP = false; 
+			KEY.UP = false; 
 		}
 		if (event.type == SDL_KEYDOWN &&
 			event.key.keysym.sym == SDLK_DOWN) {
-			KEY_STATE.DOWN = true;
+			KEY.DOWN = true;
 		}
 		else {
-			KEY_STATE.DOWN = false;
+			KEY.DOWN = false;
 		}
 		if (event.type == SDL_KEYDOWN &&
 			event.key.keysym.sym == SDLK_LEFT) {
-			KEY_STATE.LEFT = true;
+			KEY.LEFT = true;
 		}
 		else {
-			KEY_STATE.LEFT = false;
+			KEY.LEFT = false;
 		}
 		if (event.type == SDL_KEYDOWN &&
 			event.key.keysym.sym == SDLK_RIGHT) {
-			KEY_STATE.RIGHT = true;
+			KEY.RIGHT = true;
 		}
 		else {
-			KEY_STATE.RIGHT = false;
+			KEY.RIGHT = false;
 		}
 	}
 	
+}
+
+KEY_STATE Input::GetInput()
+{
+	return KEY;
 }
 
 

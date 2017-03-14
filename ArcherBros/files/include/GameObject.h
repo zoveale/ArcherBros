@@ -11,7 +11,7 @@ class GameObject
 {
 private:
 	SDL_Renderer* renderer;
-	Input input;
+	KEY_STATE KEY;
 	SDL_Rect rect;
 	SDL_Texture* texture;
 
@@ -21,8 +21,9 @@ public:
 	void Initialization(std::string path, int x, int y, int w, int h);
 	void Update();
 	void Draw();
-	void SetRenderer(const SDL_Renderer* renderer);
-	void SetInput(const Input &input);
+	void SetRenderer(SDL_Renderer* renderer);
+	void SetInput(const KEY_STATE &KEY);
+	void Close();
 
 	~GameObject();
 };

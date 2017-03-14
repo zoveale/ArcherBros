@@ -15,11 +15,12 @@ class Input
 private:
 	SDL_Event event;
 	bool quit;
-	KEY_STATE KEY_STATE;
+	KEY_STATE KEY;
 public:
 	Input();
 	bool Quit();
 	void Process();
+	KEY_STATE GetInput();
 	~Input();
 };
 

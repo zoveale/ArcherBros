@@ -28,6 +28,10 @@ void System::Initialization()
 		printf("IMG_Init: %s\n", IMG_GetError());
 		// handle error
 	}
+
+	RedSquareOne.SetRenderer(renderer);
+	RedSquareOne.Initialization("resource/red_square.png", 320, 240, 100, 100);
+
 }
 
 void System::GameLoop()
@@ -37,9 +41,14 @@ void System::GameLoop()
 	while (!input.Quit()) {
 
 		input.Process();
+		RedSquareOne.SetInput(input.GetInput());
+
+		RedSquareOne.Update();
+
 
 		SDL_SetRenderDrawColor(renderer, 48, 80, 48, 255);
 		SDL_RenderClear(renderer);
+		RedSquareOne.Draw();
 		SDL_RenderPresent(renderer);
 		
 
@@ -51,6 +60,7 @@ void System::GameLoop()
 
 void System::Close()
 {
+	RedSquareOne.Close();
 	//Quit SDL subsystems
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
