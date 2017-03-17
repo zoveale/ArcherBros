@@ -19,21 +19,7 @@ void GameObject::Initialization(std::string path,
 	rect = { x, y, w, h };
 }
 
-void GameObject::Update()
-{
-	if (KEY.UP) {
-		rect.y -= 5;
-	}
-	if (KEY.DOWN) {
-		rect.y += 5;
-	}
-	if (KEY.LEFT) {
-		rect.x -= 5;
-	}
-	if (KEY.RIGHT) {
-		rect.x += 5;
-	}
-}
+
 
 void GameObject::Draw()
 {

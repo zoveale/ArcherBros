@@ -30,8 +30,9 @@ void System::Initialization()
 	}
 
 	RedSquareOne.SetRenderer(renderer);
-	RedSquareOne.Initialization("resource/red_square.png", 320, 240, 100, 100);
-
+	RedSquareOne.Initialization("resource/red_square.png", 480, 240, 100, 100);
+	BlueSquareTwo.SetRenderer(renderer);
+	BlueSquareTwo.Initialization("resource/blue_square.png", 160, 240, 100, 100);
 }
 
 void System::GameLoop()
@@ -42,13 +43,16 @@ void System::GameLoop()
 
 		input.Process();
 		RedSquareOne.SetInput(input.GetInput());
-
+		BlueSquareTwo.SetInput(input.GetInput());
+		
 		RedSquareOne.Update();
+		BlueSquareTwo.Update();
 
 
 		SDL_SetRenderDrawColor(renderer, 48, 80, 48, 255);
 		SDL_RenderClear(renderer);
 		RedSquareOne.Draw();
+		BlueSquareTwo.Draw();
 		SDL_RenderPresent(renderer);
 		
 

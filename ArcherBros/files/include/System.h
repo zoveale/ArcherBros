@@ -15,7 +15,8 @@ private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 	Input input;
-	GameObject RedSquareOne;
+	Redsquare RedSquareOne;
+	Bluesquare BlueSquareTwo;
 
 public:
 	System();

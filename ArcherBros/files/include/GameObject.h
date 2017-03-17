@@ -5,21 +5,25 @@
 #include <SDL_image.h>
 #include <string>
 #include <iostream>
+
 #include "../include/Input.h"
+#include "../include/Movement.h"
 
 class GameObject
 {
-private:
+protected:
+
 	SDL_Renderer* renderer;
 	KEY_STATE KEY;
 	SDL_Rect rect;
 	SDL_Texture* texture;
+	Movement move;
 
 public:
 	GameObject();
 
 	void Initialization(std::string path, int x, int y, int w, int h);
-	void Update();
+	virtual void Update() = 0;
 	void Draw();
 	void SetRenderer(SDL_Renderer* renderer);
 	void SetInput(const KEY_STATE &KEY);
@@ -27,5 +31,24 @@ public:
 
 	~GameObject();
 };
+
+class Redsquare : public GameObject
+{
+public: 
+
+	void Update() {
+		move.Left(rect, KEY);
+	}
+};
+
+class Bluesquare : public GameObject
+{
+public:
+
+	void Update() {
+		move.Right(rect, KEY);
+	}
+};
+
 
 #endif //!GAMEOBJECT

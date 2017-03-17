@@ -8,6 +8,10 @@ struct KEY_STATE{
 	bool LEFT = false;
 	bool RIGHT = false;
 
+	bool W = false;
+	bool S = false;
+	bool A = false;
+	bool D = false;
 };
 
 class Input
