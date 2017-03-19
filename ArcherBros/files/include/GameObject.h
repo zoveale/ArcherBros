@@ -2,27 +2,53 @@
 #define GAMEOBJECT_H
 
 #include <SDL.h>
+#include <SDL_image.h>
 #include <string>
+#include <iostream>
+
 #include "../include/Input.h"
+#include "../include/Movement.h"
 
 class GameObject
 {
-private:
+protected:
+
 	SDL_Renderer* renderer;
-	Input input;
+	KEY_STATE KEY;
 	SDL_Rect rect;
 	SDL_Texture* texture;
+	Movement move;
 
 public:
 	GameObject();
 
-	void Initialization(std::string path);
-	void Update();
+	void Initialization(std::string path, int x, int y, int w, int h);
+	virtual void Update() = 0;
 	void Draw();
-	void SetRenderer(const SDL_Renderer* renderer);
-	void SetInput(const Input &input);
+	void SetRenderer(SDL_Renderer* renderer);
+	void SetInput(const KEY_STATE &KEY);
+	void Close();
 
 	~GameObject();
 };
+
+class Redsquare : public GameObject
+{
+public: 
+
+	void Update() {
+		move.Left(rect, KEY);
+	}
+};
+
+class Bluesquare : public GameObject
+{
+public:
+
+	void Update() {
+		move.Right(rect, KEY);
+	}
+};
+
 
 #endif //!GAMEOBJECT

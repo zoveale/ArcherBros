@@ -1,5 +1,5 @@
 #include "..\include\Input.h"
-
+#include <iostream>
 
 
 Input::Input()
@@ -14,45 +14,94 @@ bool Input::Quit()
 
 void Input::Process()
 {
-	
+
 	while (SDL_PollEvent(&event)) {
 		if (event.type == SDL_QUIT) {
 			quit = true;
 		}
-		if (event.type == SDL_KEYDOWN && 
+
+		//
+
+		if (event.type == SDL_KEYDOWN &&
 			event.key.keysym.sym == SDLK_UP) {
-			KEY_STATE.UP = true;
+			KEY.UP = true;
 		}
-		else { 
-			KEY_STATE.UP = false; 
+		if (event.type == SDL_KEYUP &&
+			event.key.keysym.sym == SDLK_UP) {
+			KEY.UP = false;
 		}
 		if (event.type == SDL_KEYDOWN &&
 			event.key.keysym.sym == SDLK_DOWN) {
-			KEY_STATE.DOWN = true;
+			KEY.DOWN = true;
 		}
-		else {
-			KEY_STATE.DOWN = false;
+		if (event.type == SDL_KEYUP &&
+			event.key.keysym.sym == SDLK_DOWN) {
+			KEY.DOWN = false;
 		}
 		if (event.type == SDL_KEYDOWN &&
 			event.key.keysym.sym == SDLK_LEFT) {
-			KEY_STATE.LEFT = true;
+			KEY.LEFT = true;
 		}
-		else {
-			KEY_STATE.LEFT = false;
+		if (event.type == SDL_KEYUP &&
+			event.key.keysym.sym == SDLK_LEFT) {
+			KEY.LEFT = false;
 		}
+
 		if (event.type == SDL_KEYDOWN &&
 			event.key.keysym.sym == SDLK_RIGHT) {
-			KEY_STATE.RIGHT = true;
+			KEY.RIGHT = true;
 		}
-		else {
-			KEY_STATE.RIGHT = false;
+		if (event.type == SDL_KEYUP &&
+			event.key.keysym.sym == SDLK_RIGHT) {
+			KEY.RIGHT = false;
 		}
+
+		//
+
+		if (event.type == SDL_KEYDOWN &&
+			event.key.keysym.sym == SDLK_w) {
+			KEY.W = true;
+		}
+		if (event.type == SDL_KEYUP &&
+			event.key.keysym.sym == SDLK_w) {
+			KEY.W = false;
+		}
+		if (event.type == SDL_KEYDOWN &&
+			event.key.keysym.sym == SDLK_s) {
+			KEY.S = true;
+		}
+		if (event.type == SDL_KEYUP &&
+			event.key.keysym.sym == SDLK_s) {
+			KEY.S = false;
+		}
+		if (event.type == SDL_KEYDOWN &&
+			event.key.keysym.sym == SDLK_a) {
+			KEY.A = true;
+		}
+		if (event.type == SDL_KEYUP &&
+			event.key.keysym.sym == SDLK_a) {
+			KEY.A = false;
+		}
+		if (event.type == SDL_KEYDOWN &&
+			event.key.keysym.sym == SDLK_d) {
+			KEY.D = true;
+		}
+		if (event.type == SDL_KEYUP &&
+			event.key.keysym.sym == SDLK_d) {
+			KEY.D = false;
+
+		}
+
 	}
-	
+}
+
+KEY_STATE Input::GetInput()
+{
+	return KEY;
 }
 
 
 Input::~Input()
 {
-	
+
 }

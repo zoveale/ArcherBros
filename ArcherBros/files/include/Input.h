@@ -8,6 +8,10 @@ struct KEY_STATE{
 	bool LEFT = false;
 	bool RIGHT = false;
 
+	bool W = false;
+	bool S = false;
+	bool A = false;
+	bool D = false;
 };
 
 class Input
@@ -15,11 +19,12 @@ class Input
 private:
 	SDL_Event event;
 	bool quit;
-	KEY_STATE KEY_STATE;
+	KEY_STATE KEY;
 public:
 	Input();
 	bool Quit();
 	void Process();
+	KEY_STATE GetInput();
 	~Input();
 };
 

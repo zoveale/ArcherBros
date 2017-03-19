@@ -3,7 +3,11 @@
 
 #include <iostream>
 #include <SDL.h>
+#include <SDL_image.h>
+
 #include "../include/Input.h"
+#include "../include/GameObject.h"
+
 
 class System
 {
@@ -11,6 +15,8 @@ private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 	Input input;
+	Redsquare RedSquareOne;
+	Bluesquare BlueSquareTwo;
 
 public:
 	System();
