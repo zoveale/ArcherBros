@@ -41,18 +41,26 @@ void System::GameLoop()
 	
 	while (!input.Quit()) {
 
+    //Input 
 		input.Process();
 		RedSquareOne.SetInput(input.GetInput());
 		BlueSquareTwo.SetInput(input.GetInput());
 		
+    //Update Objects Positions
 		RedSquareOne.Update();
 		BlueSquareTwo.Update();
 
-
+    //Background Color (rgb, alpha)
 		SDL_SetRenderDrawColor(renderer, 48, 80, 48, 255);
+
+    //Clear Screen
 		SDL_RenderClear(renderer);
+
+    //Draw Objects
 		RedSquareOne.Draw();
 		BlueSquareTwo.Draw();
+
+    //Update Screen
 		SDL_RenderPresent(renderer);
 		
 
@@ -65,6 +73,7 @@ void System::GameLoop()
 void System::Close()
 {
 	RedSquareOne.Close();
+  BlueSquareTwo.Close();
 	//Quit SDL subsystems
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);

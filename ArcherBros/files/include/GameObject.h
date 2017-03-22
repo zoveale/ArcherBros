@@ -8,7 +8,9 @@
 
 #include "../include/Input.h"
 #include "../include/Movement.h"
-
+/*
+GameObject is now a template 
+*/
 class GameObject
 {
 protected:
@@ -32,6 +34,9 @@ public:
 	~GameObject();
 };
 
+/*
+
+*/
 class Redsquare : public GameObject
 {
 public: 

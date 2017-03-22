@@ -4,7 +4,6 @@
 
 int main(int argc, char* argv[]) {
 
-  //GIT TEST TEST
 
 	System system;
 
