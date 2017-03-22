@@ -13,7 +13,8 @@ void System::Initialization()
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		std::cout << SDL_GetError();
 	}
-
+  
+  //FIX ME:: add fuctions for screen Height and width
 	window = SDL_CreateWindow("Archer BROS!", SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
@@ -29,6 +30,7 @@ void System::Initialization()
 		// handle error
 	}
 
+  //Init GameObjects
 	RedSquareOne.SetRenderer(renderer);
 	RedSquareOne.Initialization("resource/red_square.png", 480, 240, 100, 100);
 	BlueSquareTwo.SetRenderer(renderer);

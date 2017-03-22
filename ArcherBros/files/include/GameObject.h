@@ -9,7 +9,7 @@
 #include "../include/Input.h"
 #include "../include/Movement.h"
 /*
-GameObject is now a template 
+GameObject is now a template (Abstract base Class) 
 */
 class GameObject
 {
@@ -35,7 +35,7 @@ public:
 };
 
 /*
-
+Game Objects made from GameObject template class
 */
 class Redsquare : public GameObject
 {
