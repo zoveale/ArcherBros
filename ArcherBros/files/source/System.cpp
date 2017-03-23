@@ -16,7 +16,7 @@ void System::Initialization()
   
   //FIX ME:: add fuctions for screen Height and width
 	window = SDL_CreateWindow("Archer BROS!", SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN);
+		SDL_WINDOWPOS_CENTERED, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 
 
@@ -35,12 +35,14 @@ void System::Initialization()
   RedSquareOne.InitDirectionalTextures("resource/red_square_idel.png",
     "resource/red_square_up.png","resource/red_square_down.png",
     "resource/red_square_left.png","resource/red_square_right.png");
-	RedSquareOne.Initialization(RedSquareOne.GetIdelTexture(), 480, 240, 100, 100);
+	RedSquareOne.Initialization(RedSquareOne.GetIdelTexture(),
+    480, 240, RedSquareOne.getW(), RedSquareOne.getH());
 	BlueSquareTwo.SetRenderer(renderer);
   BlueSquareTwo.InitDirectionalTextures("resource/blue_square_idel.png",
     "resource/blue_square_up.png", "resource/blue_square_down.png", 
     "resource/blue_square_left.png", "resource/blue_square_right.png");
-	BlueSquareTwo.Initialization(BlueSquareTwo.GetIdelTexture(), 160, 240, 100, 100);
+	BlueSquareTwo.Initialization(BlueSquareTwo.GetIdelTexture(),
+    160, 240, 50, 50);
 }
 
 void System::GameLoop()
