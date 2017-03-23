@@ -30,7 +30,10 @@ class GameObject {
   SDL_Texture* directionTexture[TOTAL];
   Movement move;
 
-  
+  int xPos, yPos;
+
+  SDL_Rect objectCollider;
+ 
 
 
   public:
@@ -51,12 +54,22 @@ class GameObject {
   void Draw();
   void SetRenderer(SDL_Renderer* renderer);
   void SetInput(const KEY_STATE &KEY);
-
-
-
   void Close();
-
   ~GameObject();
+
+  //CollisionChecker
+  void SetX(int a);
+  void SetY(int a);
+  void SetH();
+  void SetW();
+
+
+  int XPos();
+  int YPos();
+  int GetBoundsHeight();
+  int GetBoundsWidth();
+
+  
 };
 
 
@@ -65,21 +78,8 @@ class GameObject {
 Game Objects made from GameObject template class
 */
 class Redsquare: public GameObject {
-  private:
-
-  const int h = 50;
-  const int w = 50;
-
 
   public:
-
-  int getH() {
-    return h;
-  }
-  int getW() {
-    return w;
-  }
-
   void Update() {
     move.Left(rect, KEY);
 
