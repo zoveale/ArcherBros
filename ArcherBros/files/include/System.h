@@ -14,12 +14,21 @@ class System
 private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
+
 	Input input;
+
+  //Create GameObjects from Classes made from template
 	Redsquare RedSquareOne;
 	Bluesquare BlueSquareTwo;
 
+  //FIX ME:: will add fuctions later to SDL create window
+  const int screenWidth = 640;
+  const int screenHeight = 480;
+
 public:
 	System();
+  
+  
 
 	void Initialization();
 	void GameLoop();

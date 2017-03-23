@@ -10,6 +10,7 @@ public:
 	void Left(SDL_Rect& RECT, const KEY_STATE& KEY ) {
 			if (KEY.UP) {
 				RECT.y -= 5;
+        
 			}
 			if (KEY.DOWN) {
 				RECT.y += 5;
