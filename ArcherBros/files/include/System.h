@@ -7,6 +7,7 @@
 
 #include "../include/Input.h"
 #include "../include/GameObject.h"
+#include "../include/CollisionDetection.h"
 
 
 class System
@@ -25,13 +26,20 @@ private:
   const int screenWidth = 640;
   const int screenHeight = 480;
 
+  
+
 public:
 	System();
+  //Collision Detection
+  CollisionDetection collidCheck;
   
   
 
 	void Initialization();
 	void GameLoop();
+
+  
+
 	void Close();
 
 	~System();

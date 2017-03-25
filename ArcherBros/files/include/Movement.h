@@ -5,41 +5,46 @@
 #include "../include/Input.h"
 
 class Movement {
-public:
+  private:
+  int velocity;
+  public:
+  Movement(){ velocity = 5; }
 
-	void Left(SDL_Rect& RECT, const KEY_STATE& KEY ) {
-			if (KEY.UP) {
-				RECT.y -= 5;
-        
-			}
-			if (KEY.DOWN) {
-				RECT.y += 5;
-			}
-			if (KEY.LEFT) {
-				RECT.x -= 5;
-			}
-			if (KEY.RIGHT) {
-				RECT.x += 5;
-			}
-			
-	}
+  int GetVelo() { return velocity; }
 
-	void Right(SDL_Rect& RECT, const KEY_STATE& KEY) {
-		if (KEY.W) {
-			RECT.y -= 5;
-		}
-		if (KEY.S) {
-			RECT.y += 5;
-		}
-		if (KEY.A) {
-			RECT.x -= 5;
-		}
-		if (KEY.D) {
-			RECT.x += 5;
-		}
+  void Left(SDL_Rect& RECT, const KEY_STATE& KEY) {
+    if (KEY.UP) {
+      RECT.y -= velocity;
 
-		
-	}
+    }
+    if (KEY.DOWN) {
+      RECT.y += velocity;
+    }
+    if (KEY.LEFT) {
+      RECT.x -= velocity;
+    }
+    if (KEY.RIGHT) {
+      RECT.x += velocity;
+    }
+
+  }
+
+  void Right(SDL_Rect& RECT, const KEY_STATE& KEY) {
+    if (KEY.W) {
+      RECT.y -= velocity;
+    }
+    if (KEY.S) {
+      RECT.y += velocity;
+    }
+    if (KEY.A) {
+      RECT.x -= velocity;
+    }
+    if (KEY.D) {
+      RECT.x += velocity;
+    }
+
+
+  }
 
 };
 #endif // !MOVEMENT_H

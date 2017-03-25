@@ -4,6 +4,10 @@
 
 GameObject::GameObject()
 {
+  xPos = 0;
+  yPos = 0;
+
+  objectCollider = {0,0,0,0};
 }
 
 SDL_Texture* GameObject::LoadTexture(std::string path) {
@@ -41,20 +45,15 @@ SDL_Texture * GameObject::GetIdelTexture() {
 void GameObject::Initialization(SDL_Texture* idelTexture,
 	int x, int y, int w, int h)
 {
+  objectCollider.w = w;
+  objectCollider.h = h;
+  objectCollider.x = x;
+  objectCollider.y = y;
 
-  /*
-  FIX ME:: make IMG_load a fuction that can be accessed 
-  by all 
-  */
   texture = idelTexture;
 
 	rect = { x, y, w, h };
 }
-
-
-
-
-
 
 void GameObject::Draw()
 {
@@ -79,4 +78,33 @@ void GameObject::Close()
 
 GameObject::~GameObject()
 {
+}
+
+void GameObject::SetX(int a) {
+rect.x = a;
+}
+
+void GameObject::SetY(int a) {
+rect.y = a;
+}
+
+
+int GameObject::XPos() {
+  return rect.x;
+}
+
+int GameObject::YPos() {
+  return rect.y;
+}
+
+int GameObject::Height() {
+  return rect.h;
+}
+
+int GameObject::Width() {
+  return rect.w;
+}
+
+SDL_Rect GameObject::Rect() {
+  return rect;
 }

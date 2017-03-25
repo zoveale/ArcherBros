@@ -36,13 +36,15 @@ void System::Initialization()
     "resource/red_square_up.png","resource/red_square_down.png",
     "resource/red_square_left.png","resource/red_square_right.png");
 	RedSquareOne.Initialization(RedSquareOne.GetIdelTexture(),
-    480, 240, RedSquareOne.getW(), RedSquareOne.getH());
+    480, 240, 50, 50);
 	BlueSquareTwo.SetRenderer(renderer);
   BlueSquareTwo.InitDirectionalTextures("resource/blue_square_idel.png",
     "resource/blue_square_up.png", "resource/blue_square_down.png", 
     "resource/blue_square_left.png", "resource/blue_square_right.png");
 	BlueSquareTwo.Initialization(BlueSquareTwo.GetIdelTexture(),
     160, 240, 50, 50);
+
+ 
 }
 
 void System::GameLoop()
@@ -56,11 +58,12 @@ void System::GameLoop()
 		RedSquareOne.SetInput(input.GetInput());
 		BlueSquareTwo.SetInput(input.GetInput());
 		
-    //Update Objects Positions
+    //Update Objects Positions and Textures
 		RedSquareOne.Update();
 		BlueSquareTwo.Update();
 
-   // RedSquareOne.DirectTex();
+    collidCheck.ObjectCollision(RedSquareOne, BlueSquareTwo);
+    
 
     //Background Color (rgb, alpha)
 		SDL_SetRenderDrawColor(renderer, 48, 80, 48, 255);
