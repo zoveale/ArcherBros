@@ -8,7 +8,7 @@ class CollisionDetection {
   CollisionDetection();
 
   void ObjectCollision(Redsquare& a, Bluesquare& b);
-  bool CheckCollision();
+  bool CheckCollision(SDL_Rect& a,SDL_Rect& b);
   ~CollisionDetection();
 };
 

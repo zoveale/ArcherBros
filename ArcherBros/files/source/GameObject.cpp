@@ -97,10 +97,14 @@ int GameObject::YPos() {
   return rect.y;
 }
 
-int GameObject::GetBoundsHeight() {
+int GameObject::Height() {
   return rect.h;
 }
 
-int GameObject::GetBoundsWidth() {
+int GameObject::Width() {
   return rect.w;
+}
+
+SDL_Rect GameObject::Rect() {
+  return rect;
 }

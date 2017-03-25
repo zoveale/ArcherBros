@@ -66,8 +66,10 @@ class GameObject {
 
   int XPos();
   int YPos();
-  int GetBoundsHeight();
-  int GetBoundsWidth();
+  int Height();
+  int Width();
+
+  SDL_Rect Rect();
 
   
 };
