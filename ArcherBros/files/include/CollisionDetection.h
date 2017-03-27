@@ -8,6 +8,7 @@ class CollisionDetection {
   CollisionDetection();
 
   void ObjectCollision(Redsquare& a, Bluesquare& b);
+  bool OutsideBounds(int A_X, int A_Y, int B_X, int B_Y);
   bool CheckCollision(SDL_Rect& a,SDL_Rect& b);
   ~CollisionDetection();
 };
