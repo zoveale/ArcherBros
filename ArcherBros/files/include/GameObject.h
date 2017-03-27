@@ -16,17 +16,13 @@ GameObject is now a template (Abstract base Class)
 */
 class GameObject {
 protected:
-
-	Physics physics;
-
 	SDL_Renderer* renderer;
 	KEY_STATE KEY;
 	SDL_Rect rect;
 
+  Physics physics;
 	Render render;
-
 	ObjectDirection currentState;
-
 	Movement move;
 
 	SDL_Point velocity;
@@ -70,7 +66,7 @@ class Redsquare : public GameObject {
 
 public:
 	void Update() {
-		move.Left(velocity, KEY, currentState);
+		move.PlayerOne(velocity, KEY, currentState);
 
 		SDL_Rect temp{ rect.x + velocity.x, rect.y + velocity.y,
 		rect.w, rect.h };
@@ -91,7 +87,7 @@ class Bluesquare : public GameObject {
 public:
 
 	void Update() {
-		move.Right(velocity, KEY, currentState);
+		move.PlayerTwo(velocity, KEY, currentState);
 
 		SDL_Rect temp{ rect.x + velocity.x, rect.y + velocity.y,
 			rect.w, rect.h };
@@ -99,6 +95,7 @@ public:
 		if (physics.CheckWindowCollision(temp)) {
 			velocity.x = 0;
 			velocity.y = 0;
+      
 		}
 
 		render.Update(currentState);

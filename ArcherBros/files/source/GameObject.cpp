@@ -61,7 +61,11 @@ void GameObject::SetInput(const KEY_STATE &KEY)
 
 void GameObject::Close()
 {
-	//SDL_DestroyTexture();
+  for (int i = 0; i < render.AllTextures(); i++) 
+  {
+    SDL_DestroyTexture(render.States(i));
+  }
+	
 }
 
 GameObject::~GameObject()

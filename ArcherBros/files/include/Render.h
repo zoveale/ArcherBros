@@ -33,6 +33,10 @@ public:
 	SDL_Texture* GetState() const { return currentState; }
 
 	void AddState(SDL_Texture* state) { this->state.push_back(state); }
+
+  //Destroy Fuctions
+  int AllTextures(){return state.size();}
+  SDL_Texture* States(int i) { return state.at(i); }
 };
 
 #endif // !RENDER_H

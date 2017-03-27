@@ -7,7 +7,7 @@
 class Movement {
 public:
 
-	void Left(SDL_Point& velocity, const KEY_STATE& KEY,
+	void PlayerOne(SDL_Point& velocity, const KEY_STATE& KEY,
 		ObjectDirection& current) {
 
 		velocity.x = 0;
@@ -35,7 +35,7 @@ public:
 
 	}
 
-	void Right(SDL_Point& velocity, const KEY_STATE& KEY,
+	void PlayerTwo(SDL_Point& velocity, const KEY_STATE& KEY,
 		ObjectDirection& current) {
 
 		velocity.x = 0;
