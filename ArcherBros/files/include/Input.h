@@ -14,6 +14,10 @@ struct KEY_STATE{
 	bool D = false;
 };
 
+enum ObjectDirection {
+	IDEL, UP, DOWN, LEFT, RIGHT, TOTAL
+};
+
 class Input
 {
 private:

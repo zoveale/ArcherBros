@@ -8,70 +8,57 @@
 
 #include "../include/Input.h"
 #include "../include/Movement.h"
+#include "../include/Render.h"
+#include "../include/Physics.h"
 
 /*
 GameObject is now a template (Abstract base Class)
 */
 class GameObject {
-  protected:
+protected:
 
-  /*
-  Enum for direction of GameObjects
-  */
-  enum ObjectDirection {
-    IDEL, UP, DOWN, LEFT, RIGHT, TOTAL
-  };
+	Physics physics;
 
-  SDL_Renderer* renderer;
-  KEY_STATE KEY;
-  SDL_Rect rect;
+	SDL_Renderer* renderer;
+	KEY_STATE KEY;
+	SDL_Rect rect;
 
-  SDL_Texture* texture;
-  SDL_Texture* directionTexture[TOTAL];
-  Movement move;
+	Render render;
 
-  int xPos, yPos;
+	ObjectDirection currentState;
 
-  SDL_Rect objectCollider;
- 
+	Movement move;
+
+	SDL_Point velocity;
+
+	
 
 
-  public:
-  GameObject();
+public:
+	GameObject();
 
-  SDL_Texture* LoadTexture(std::string path);
+	SDL_Texture* LoadTexture(std::string path);
 
-  bool InitDirectionalTextures(std::string idel, std::string up,
-    std::string down, std::string left, std::string right);
-
-  SDL_Texture* GetIdelTexture();
-
-  void Initialization(SDL_Texture* texture,
-    int x, int y, int w, int h);
+	bool InitDirectionalTextures(std::string idel, std::string up,
+		std::string down, std::string left, std::string right);
 
 
-  virtual void Update() = 0;
-  void Draw();
-  void SetRenderer(SDL_Renderer* renderer);
-  void SetInput(const KEY_STATE &KEY);
-  void Close();
-  ~GameObject();
 
-  //CollisionChecker
-  void SetX(int a);
-  void SetY(int a);
-  void SetH();
-  void SetW();
+	void Initialization(int x, int y, int w, int h);
 
 
-  int XPos();
-  int YPos();
-  int Height();
-  int Width();
+	virtual void Update() = 0;
+	void Draw();
+	void SetRenderer(SDL_Renderer* renderer);
+	void SetInput(const KEY_STATE &KEY);
+	void Close();
+	~GameObject();
 
-  SDL_Rect Rect();
+	SDL_Rect Rect();
 
-  
+
+
+
 };
 
 
@@ -79,52 +66,47 @@ class GameObject {
 /*
 Game Objects made from GameObject template class
 */
-class Redsquare: public GameObject {
+class Redsquare : public GameObject {
 
-  public:
-  void Update() {
-    move.Left(rect, KEY);
+public:
+	void Update() {
+		move.Left(velocity, KEY, currentState);
 
-    texture = directionTexture[IDEL];
+		SDL_Rect temp{ rect.x + velocity.x, rect.y + velocity.y,
+		rect.w, rect.h };
 
-    if (KEY.UP) {
-      texture = directionTexture[UP];
-    }
-    if (KEY.DOWN) {
-      texture = directionTexture[DOWN];
-    }
-    if (KEY.LEFT) {
-      texture = directionTexture[LEFT];
-    }
-    if (KEY.RIGHT) {
-      texture = directionTexture[RIGHT];
-    }
-  }
+		if (physics.CheckWindowCollision(temp)) {
+			velocity.x = 0;
+			velocity.y = 0;
+		}
+
+		render.Update(currentState);
+		rect.x += velocity.x;
+		rect.y += velocity.y;
+	}
 
 };
 
-class Bluesquare: public GameObject {
-  public:
+class Bluesquare : public GameObject {
+public:
 
-  void Update() {
-    move.Right(rect, KEY);
+	void Update() {
+		move.Right(velocity, KEY, currentState);
 
-    texture = directionTexture[IDEL];
+		SDL_Rect temp{ rect.x + velocity.x, rect.y + velocity.y,
+			rect.w, rect.h };
 
-    if (KEY.W) {
-      texture = directionTexture[UP];
-    }
-    if (KEY.S) {
-      texture = directionTexture[DOWN];
-    }
-    if (KEY.A) {
-      texture = directionTexture[LEFT];
-    }
-    if (KEY.D) {
-      texture = directionTexture[RIGHT];
-    }
+		if (physics.CheckWindowCollision(temp)) {
+			velocity.x = 0;
+			velocity.y = 0;
+		}
 
-  }
+		render.Update(currentState);
+		
+
+		rect.x += velocity.x;
+		rect.y += velocity.y;
+	}
 };
 
 

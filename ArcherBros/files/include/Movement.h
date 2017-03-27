@@ -5,46 +5,63 @@
 #include "../include/Input.h"
 
 class Movement {
-  private:
-  int velocity;
-  public:
-  Movement(){ velocity = 5; }
+public:
 
-  int GetVelo() { return velocity; }
+	void Left(SDL_Point& velocity, const KEY_STATE& KEY,
+		ObjectDirection& current) {
 
-  void Left(SDL_Rect& RECT, const KEY_STATE& KEY) {
-    if (KEY.UP) {
-      RECT.y -= velocity;
+		velocity.x = 0;
+		velocity.y = 0;
 
-    }
-    if (KEY.DOWN) {
-      RECT.y += velocity;
-    }
-    if (KEY.LEFT) {
-      RECT.x -= velocity;
-    }
-    if (KEY.RIGHT) {
-      RECT.x += velocity;
-    }
+		if (KEY.UP) {
+			velocity.y = -10;
+			current = ObjectDirection::UP;
+		}
+		if (KEY.DOWN) {
+			velocity.y = 10;
+			current = ObjectDirection::DOWN;
+		}
+		if (KEY.LEFT) {
+			velocity.x = -10;
+			current = ObjectDirection::LEFT;
+		}
+		if (KEY.RIGHT) {
+			velocity.x = 10;
+			current = ObjectDirection::RIGHT;
+		}
+		if ((velocity.x == 0) && (velocity.y == 0)) {
+			current = ObjectDirection::IDEL;
+		}
 
-  }
+	}
 
-  void Right(SDL_Rect& RECT, const KEY_STATE& KEY) {
-    if (KEY.W) {
-      RECT.y -= velocity;
-    }
-    if (KEY.S) {
-      RECT.y += velocity;
-    }
-    if (KEY.A) {
-      RECT.x -= velocity;
-    }
-    if (KEY.D) {
-      RECT.x += velocity;
-    }
+	void Right(SDL_Point& velocity, const KEY_STATE& KEY,
+		ObjectDirection& current) {
 
+		velocity.x = 0;
+		velocity.y = 0;
 
-  }
+		if (KEY.W) {
+			velocity.y = -10;
+			current = ObjectDirection::UP;
+		}
+		if (KEY.S) {
+			velocity.y = 10;
+			current = ObjectDirection::DOWN;
+		}
+		if (KEY.A) {
+			velocity.x = -10;
+			current = ObjectDirection::LEFT;
+		}
+		if (KEY.D) {
+			velocity.x = 10;
+			current = ObjectDirection::RIGHT;
+		}
+		if ((velocity.x == 0) && (velocity.y == 0)) {
+			current = ObjectDirection::IDEL;
+		}
+
+	}
 
 };
 #endif // !MOVEMENT_H

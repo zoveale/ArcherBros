@@ -4,10 +4,7 @@
 
 GameObject::GameObject()
 {
-  xPos = 0;
-  yPos = 0;
 
-  objectCollider = {0,0,0,0};
 }
 
 SDL_Texture* GameObject::LoadTexture(std::string path) {
@@ -29,35 +26,26 @@ SDL_Texture* GameObject::LoadTexture(std::string path) {
 bool GameObject::InitDirectionalTextures(std::string idel, std::string up,
   std::string down, std::string left, std::string right) {
 
-  directionTexture[IDEL] = LoadTexture(idel);
-  directionTexture[UP] = LoadTexture(up);
-  directionTexture[DOWN] = LoadTexture(down);
-  directionTexture[LEFT] = LoadTexture(left);
-  directionTexture[RIGHT] = LoadTexture(right);
+  render.AddState(LoadTexture(up));
+  render.AddState(LoadTexture(down));
+  render.AddState(LoadTexture(left));
+  render.AddState(LoadTexture(right));
+  render.AddState(LoadTexture(idel));
 
   return true;
 }
 
-SDL_Texture * GameObject::GetIdelTexture() {
-  return directionTexture[IDEL];
-}
 
-void GameObject::Initialization(SDL_Texture* idelTexture,
-	int x, int y, int w, int h)
+
+void GameObject::Initialization(int x, int y, int w, int h)
 {
-  objectCollider.w = w;
-  objectCollider.h = h;
-  objectCollider.x = x;
-  objectCollider.y = y;
-
-  texture = idelTexture;
-
+    
 	rect = { x, y, w, h };
 }
 
 void GameObject::Draw()
 {
-	SDL_RenderCopy(renderer, texture, NULL, &rect);
+	SDL_RenderCopy(renderer, render.GetState(), NULL, &rect);
 }
 
 
@@ -73,37 +61,13 @@ void GameObject::SetInput(const KEY_STATE &KEY)
 
 void GameObject::Close()
 {
-	SDL_DestroyTexture(texture);
+	//SDL_DestroyTexture();
 }
 
 GameObject::~GameObject()
 {
 }
 
-void GameObject::SetX(int a) {
-rect.x = a;
-}
-
-void GameObject::SetY(int a) {
-rect.y = a;
-}
-
-
-int GameObject::XPos() {
-  return rect.x;
-}
-
-int GameObject::YPos() {
-  return rect.y;
-}
-
-int GameObject::Height() {
-  return rect.h;
-}
-
-int GameObject::Width() {
-  return rect.w;
-}
 
 SDL_Rect GameObject::Rect() {
   return rect;
