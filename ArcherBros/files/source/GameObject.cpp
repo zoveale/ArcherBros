@@ -76,3 +76,5 @@ GameObject::~GameObject()
 SDL_Rect GameObject::Rect() {
   return rect;
 }
+
+

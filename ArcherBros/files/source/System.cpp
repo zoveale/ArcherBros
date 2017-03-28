@@ -36,10 +36,12 @@ void System::Initialization() {
     "resource/blue_square_up.png", "resource/blue_square_down.png",
     "resource/blue_square_left.png", "resource/blue_square_right.png");
   BlueSquareTwo.Initialization(160, 240, 50, 50);
+
+  
 }
 
 void System::GameLoop() {
-
+  Physics physics;
   while (!input.Quit()) {
 
     //Input 
@@ -47,7 +49,23 @@ void System::GameLoop() {
     RedSquareOne.SetInput(input.GetInput());
     BlueSquareTwo.SetInput(input.GetInput());
 
-    //Update Objects Positions and Textures
+
+    //Update Objects Positions
+    RedSquareOne.Position();
+    BlueSquareTwo.Position();
+   
+    if (physics.CheckObjectCollision(RedSquareOne.Rect(),
+      BlueSquareTwo.Rect())) {
+      RedSquareOne.ObjectCollision(true);
+      BlueSquareTwo.ObjectCollision(true);
+    }
+
+    //Update Objects Collision
+    RedSquareOne.Collision();
+    BlueSquareTwo.Collision();
+
+
+    //Update Objects  Textures
     RedSquareOne.Update();
     BlueSquareTwo.Update();
 
@@ -63,6 +81,9 @@ void System::GameLoop() {
 
     //Update Screen
     SDL_RenderPresent(renderer);
+
+    RedSquareOne.ObjectCollision(false);
+    BlueSquareTwo.ObjectCollision(false);
   }
 }
 
