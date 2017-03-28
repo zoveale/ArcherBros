@@ -7,7 +7,7 @@
 
 #include "../include/Input.h"
 #include "../include/GameObject.h"
-#include "../include/CollisionDetection.h"
+
 
 
 class System
@@ -31,7 +31,7 @@ private:
 public:
 	System();
   //Collision Detection
-  CollisionDetection collidCheck;
+  
   
   
 
