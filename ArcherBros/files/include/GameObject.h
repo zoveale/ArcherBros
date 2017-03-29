@@ -15,45 +15,53 @@
 GameObject is now a template (Abstract base Class)
 */
 class GameObject {
-protected:
-	SDL_Renderer* renderer;
-	KEY_STATE KEY;
-	SDL_Rect rect;
+  protected:
+  SDL_Renderer* renderer;
+  KEY_STATE KEY;
+  SDL_Rect rect;
 
   Physics physics;
-	Render render;
-	ObjectDirection currentState;
-	Movement move;
+  Render render;
+  ObjectDirection currentState;
+  Movement move;
 
-	SDL_Point velocity;
+  SDL_Point velocity;
 
-	
-
-
-public:
-	GameObject();
-
-	SDL_Texture* LoadTexture(std::string path);
-
-	bool InitDirectionalTextures(std::string idel, std::string up,
-		std::string down, std::string left, std::string right);
+  bool collision = false;
 
 
+  public:
+  GameObject();
 
-	void Initialization(int x, int y, int w, int h);
+  SDL_Texture* LoadTexture(std::string path);
 
-
-	virtual void Update() = 0;
-	void Draw();
-	void SetRenderer(SDL_Renderer* renderer);
-	void SetInput(const KEY_STATE &KEY);
-	void Close();
-	~GameObject();
-
-	SDL_Rect Rect();
+  bool InitDirectionalTextures(std::string idel, std::string up,
+    std::string down, std::string left, std::string right);
 
 
 
+  void Initialization(int x, int y, int w, int h);
+
+
+  virtual void Update() = 0;
+  void Draw();
+  void SetRenderer(SDL_Renderer* renderer);
+  void SetInput(const KEY_STATE &KEY);
+  void Close();
+  ~GameObject();
+
+  SDL_Rect Rect();
+
+  bool ObjectCollision(bool a) {
+    if (a) {
+      this->collision = true;
+      return collision;
+    }
+    else {
+      this->collision = false;
+      return collision;
+    }
+  }
 
 };
 
@@ -62,49 +70,73 @@ public:
 /*
 Game Objects made from GameObject template class
 */
-class Redsquare : public GameObject {
-
-public:
-	void Update() {
-		move.PlayerOne(velocity, KEY, currentState);
-
-		SDL_Rect temp{ rect.x + velocity.x, rect.y + velocity.y,
-		rect.w, rect.h };
-
-		if (physics.CheckWindowCollision(temp)) {
-			velocity.x = 0;
-			velocity.y = 0;
-		}
-
-		render.Update(currentState);
-		rect.x += velocity.x;
-		rect.y += velocity.y;
-	}
-
+class Redsquare: public GameObject {
+  private:
+  //int time = 10;
+  public:
+  void Position() {
+    move.PlayerOne(velocity, KEY, currentState);
+    rect.x += velocity.x;
+    rect.y += velocity.y;
+  }
+/*
+*/
+  void Collision() {
+    
+    if (physics.CheckWindowCollision(rect)) {
+      rect.x -= velocity.x;
+      rect.y -= velocity.y;
+      std::cout << "Wall Collision\n";
+    }
+    
+    if (collision) {
+      rect.x -= velocity.x;
+      rect.y -= velocity.y;
+      std::cout << "Collided\n";
+    }
+/*
+*/
+  }
+  void Update() {
+    render.Update(currentState);
+  }
 };
 
-class Bluesquare : public GameObject {
-public:
+class Bluesquare: public GameObject {
+  private:
+  //int time = 1;
+  public:
 
-	void Update() {
-		move.PlayerTwo(velocity, KEY, currentState);
+  void Position() {
+    move.PlayerTwo(velocity, KEY, currentState);
+    rect.x += velocity.x;
+    rect.y += velocity.y;
+  }
 
-		SDL_Rect temp{ rect.x + velocity.x, rect.y + velocity.y,
-			rect.w, rect.h };
+  void Collision() {
+    if (physics.CheckWindowCollision(rect)) {
+      rect.x -= velocity.x;
+      rect.y -= velocity.y;
+    }
 
-		if (physics.CheckWindowCollision(temp)) {
-			velocity.x = 0;
-			velocity.y = 0;
-      
-		}
+    if (collision) {
+      rect.x -= velocity.x;
+      rect.y -= velocity.y;
+    }
+  }
 
-		render.Update(currentState);
-		
+  void Update() {
+    render.Update(currentState);
+  }
 
-		rect.x += velocity.x;
-		rect.y += velocity.y;
-	}
 };
 
 
 #endif //!GAMEOBJECT
+
+/*
+std::cout << "Rect : ";
+std::cout << rect.x << "\t" << rect.y << "\t";
+std::cout << "Collision Rect : ";
+std::cout << tempA.x << "\t" << tempA.y << "\n";
+*/
