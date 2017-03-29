@@ -17,8 +17,9 @@ private:
 	SDL_Renderer* renderer;
 
 	Input input;
+	Physics physics;
 
-  //Create GameObjects from Classes made from template
+    //Create GameObjects from Classes made from template
 	Redsquare RedSquareOne;
 	Bluesquare BlueSquareTwo;
 

@@ -35,8 +35,12 @@ public:
 	void AddState(SDL_Texture* state) { this->state.push_back(state); }
 
   //Destroy Fuctions
-  int AllTextures(){return state.size();}
-  SDL_Texture* States(int i) { return state.at(i); }
+  void Close() {
+	  for (int i = 0; i < state.size(); i++) {
+		  SDL_DestroyTexture(state.at(i));
+	  }
+	  currentState = nullptr;
+  }
 };
 
 #endif // !RENDER_H

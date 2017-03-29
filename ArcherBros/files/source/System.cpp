@@ -41,7 +41,7 @@ void System::Initialization() {
 }
 
 void System::GameLoop() {
-  Physics physics;
+  
   while (!input.Quit()) {
 
     //Input 
@@ -54,6 +54,7 @@ void System::GameLoop() {
     RedSquareOne.Position();
     BlueSquareTwo.Position();
    
+	//Checks Object Collision
     if (physics.CheckObjectCollision(RedSquareOne.Rect(),
       BlueSquareTwo.Rect())) {
       RedSquareOne.ObjectCollision(true);

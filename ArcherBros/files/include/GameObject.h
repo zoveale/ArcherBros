@@ -76,29 +76,33 @@ class Redsquare: public GameObject {
   public:
   void Position() {
     move.PlayerOne(velocity, KEY, currentState);
-    rect.x += velocity.x;
-    rect.y += velocity.y;
+	
   }
 /*
 */
   void Collision() {
     
-    if (physics.CheckWindowCollision(rect)) {
-      rect.x -= velocity.x;
-      rect.y -= velocity.y;
-      std::cout << "Wall Collision\n";
-    }
-    
     if (collision) {
-      rect.x -= velocity.x;
-      rect.y -= velocity.y;
-      std::cout << "Collided\n";
+		velocity.x = 0;
+		velocity.y = 0;
+		std::cout << "Collision\n";
+      
     }
+	if (physics.CheckWindowCollision(Rect())) {
+		velocity.x = 0;
+		velocity.y = 0;
+		std::cout << "Wall Collision\n";
+
+	}
+    
+    
 /*
 */
   }
   void Update() {
     render.Update(currentState);
+    rect.x += velocity.x;
+    rect.y += velocity.y;
   }
 };
 
@@ -109,24 +113,24 @@ class Bluesquare: public GameObject {
 
   void Position() {
     move.PlayerTwo(velocity, KEY, currentState);
-    rect.x += velocity.x;
-    rect.y += velocity.y;
+    
   }
 
   void Collision() {
-    if (physics.CheckWindowCollision(rect)) {
-      rect.x -= velocity.x;
-      rect.y -= velocity.y;
-    }
-
-    if (collision) {
-      rect.x -= velocity.x;
-      rect.y -= velocity.y;
-    }
+	  if (collision) {
+		  velocity.x = 0;
+		  velocity.y = 0;
+	  }
+	  if (physics.CheckWindowCollision(Rect())) {
+		  velocity.x = 0;
+		  velocity.y = 0;
+	  }
   }
 
   void Update() {
     render.Update(currentState);
+    rect.x += velocity.x;
+    rect.y += velocity.y;
   }
 
 };
