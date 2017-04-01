@@ -3,13 +3,11 @@
 
 #include <SDL.h>
 #include <iostream>
+#include "../include/Global.h"
 
 class Physics {
-
   private:
-  const int SCREEN_HEIGHT = 480;
-  const int SCREEN_WIDTH = 640;
-
+  Global global;
   public:
 
   

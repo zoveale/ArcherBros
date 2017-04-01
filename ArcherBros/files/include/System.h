@@ -7,6 +7,7 @@
 
 #include "../include/Input.h"
 #include "../include/GameObject.h"
+#include "../include/BackgroundLevels.h"
 
 
 
@@ -19,22 +20,18 @@ private:
 	Input input;
 	Physics physics;
 
-    //Create GameObjects from Classes made from template
-	Redsquare RedSquareOne;
+
+  BackgroundLevel LevelMap;
+  //Create GameObjects from Classes made from template
+  Redsquare RedSquareOne;
 	Bluesquare BlueSquareTwo;
 
   //FIX ME:: will add fuctions later to SDL create window
-  const int screenWidth = 640;
-  const int screenHeight = 480;
+  Global global;
 
   
-
 public:
 	System();
-  //Collision Detection
-  
-  
-  
 
 	void Initialization();
 	void GameLoop();
