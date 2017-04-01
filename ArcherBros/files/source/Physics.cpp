@@ -4,16 +4,16 @@
 
 bool Physics::CheckWindowCollision(const SDL_Rect & rect)
 {
-	if (rect.x < 0 || ((rect.x + rect.w) > SCREEN_WIDTH)
-     || rect.y < 0 || ((rect.y + rect.h) > SCREEN_HEIGHT)) {
+	if (rect.x < 0 || ((rect.x + rect.w) > global.LEVEL_WIDTH)
+     || rect.y < 0 || ((rect.y + rect.h) > global.LEVEL_HEIGHT)) {
 		return true;
 	}
   
 	return false;
 }
 
-bool Physics::CheckObjectCollision(const SDL_Rect & a,
-  const SDL_Rect& b) {
+bool Physics::CheckObjectCollision(const SDL_Rect& a,
+	const SDL_Rect& b) {
 
   //The sides of the rectangles
   int leftA, leftB;
@@ -33,7 +33,7 @@ bool Physics::CheckObjectCollision(const SDL_Rect & a,
   topB = b.y;
   bottomB = b.y + b.h;
 
-  //If any of the sides from A are outside of B
+  //Axis Testing
   if (bottomA <= topB) {
     return false;
   }

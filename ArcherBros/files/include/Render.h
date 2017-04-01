@@ -9,6 +9,8 @@ class Render {
 private:
 	SDL_Texture* currentState;
 	std::vector<SDL_Texture*> state;
+  SDL_Texture* currentLevel;
+  std::vector<SDL_Texture*> level;
 
 public:
 	void Update(const ObjectDirection& current) {
@@ -28,15 +30,28 @@ public:
 		default :
 			currentState = state.at(4);
 		}
-	}
 
+	}
+  
+  
+  void AddState(SDL_Texture* state) {this->state.push_back(state); }
 	SDL_Texture* GetState() const { return currentState; }
 
-	void AddState(SDL_Texture* state) { this->state.push_back(state); }
+  void SetLevel(SDL_Texture* level){ currentLevel = level;};
+	void AddLevel(SDL_Texture* level) {this->level.push_back(level);}
+  SDL_Texture*  GetLevel()  const { return currentLevel; }
 
   //Destroy Fuctions
-  int AllTextures(){return state.size();}
-  SDL_Texture* States(int i) { return state.at(i); }
+  void Close() {
+	  for (int i = 0; i < state.size(); i++) {
+		  SDL_DestroyTexture(state.at(i));
+	  }
+    for (int i = 0; i < level.size(); i++) {
+      SDL_DestroyTexture(level.at(i));
+    }
+	  currentState = nullptr;
+    currentLevel = nullptr;
+  }
 };
 
 #endif // !RENDER_H
