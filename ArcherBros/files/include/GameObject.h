@@ -32,6 +32,8 @@ class GameObject {
 
   Global global;
 
+  
+
   public:
   GameObject();
   SDL_Texture* LoadTexture(std::string path);

@@ -2,9 +2,7 @@
 
 
 
-System::System() {
-
-}
+System::System() {}
 
 void System::Initialization() {
 
@@ -14,9 +12,10 @@ void System::Initialization() {
 
   //FIX ME:: add fuctions for screen Height and width
   window = SDL_CreateWindow("Archer BROS!",
-    SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,
-    global.SCREEN_HEIGHT, global.SCREEN_WIDTH,
+    SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+    global.SCREENWIDTH(), global.SCREENHEIGHT(),
     SDL_WINDOW_SHOWN);
+  
 
   renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 
@@ -27,7 +26,6 @@ void System::Initialization() {
     printf("IMG_Init: Failed to init required jpg and png support!\n");
     printf("IMG_Init: %s\n", IMG_GetError());
   }
-
 
   //Init GameObjects
 
@@ -50,7 +48,6 @@ void System::GameLoop() {
   
   while (!input.Quit()) {
     
-
     //Input 
     input.Process();
     RedSquareOne.SetInput(input.GetInput());
@@ -62,8 +59,8 @@ void System::GameLoop() {
     BlueSquareTwo.Position();
    
 	//Checks Object Collision
-    if (physics.CheckObjectCollision(RedSquareOne.Rect(),
-      BlueSquareTwo.Rect())) {
+    if (physics.CheckObjectCollision(RedSquareOne.FutureRect(),
+      BlueSquareTwo.FutureRect())) {
       RedSquareOne.ObjectCollision(true);
       BlueSquareTwo.ObjectCollision(true);
     }
@@ -83,11 +80,7 @@ void System::GameLoop() {
 
     //Clear Screen
     SDL_RenderClear(renderer);
-
-    //Background Image
-    //LevelMap.Update();
    
-
     //Draw Objects
     RedSquareOne.Draw();
     BlueSquareTwo.Draw();

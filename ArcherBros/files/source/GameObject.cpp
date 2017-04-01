@@ -39,7 +39,6 @@ void GameObject::Initialization(int x,
 
 void GameObject::Draw()
 {
-  
 	SDL_RenderCopy(renderer, render.GetState(), NULL, &rect);
 }
 
