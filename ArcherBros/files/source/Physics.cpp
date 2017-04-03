@@ -12,6 +12,21 @@ bool Physics::CheckWindowCollision(const SDL_Rect & rect)
 	return false;
 }
 
+bool Physics::CheckWidthCollision(const SDL_Rect & rect) {
+  if (rect.x < 0 || ((rect.x + rect.w) > global.LEVELWIDTH())) {
+    return true;
+  }
+
+  return false;
+}
+bool Physics::CheckHeightCollision(const SDL_Rect & rect) {
+  if (rect.y < 0 || ((rect.y + rect.h) > global.LEVELHEIGHT())) {
+    return true;
+  }
+
+  return false;
+}
+
 bool Physics::CheckObjectCollision(const SDL_Rect& a,
 	const SDL_Rect& b) {
 
@@ -52,4 +67,16 @@ bool Physics::CheckObjectCollision(const SDL_Rect& a,
 
   //If none of the sides from A are outside B
   return true;
+}
+
+
+bool Physics::xCollision(const SDL_Rect & a,
+                         const SDL_Rect & b) 
+{
+  
+  if (CheckObjectCollision(a, b)) {
+    
+  }
+  
+  return false;
 }

@@ -22,7 +22,7 @@ private:
   //Create GameObjects from Classes made from template
   Redsquare RedSquareOne;
 	Bluesquare BlueSquareTwo;
-  
+  Ball PurpleBall;
 
   //FIX ME:: will add fuctions later to SDL create window
   Global global;
@@ -30,10 +30,16 @@ private:
 public:
 	System();
 
+  
+
 	void Initialization();
 	void GameLoop();
 	void Close();
 	~System();
+
+  void PlayerCollision();
+  void ResetCollision();
+  void DrawLines(SDL_Rect& a, SDL_Rect& b);
 };
 
 #endif //!SYSTEM_H

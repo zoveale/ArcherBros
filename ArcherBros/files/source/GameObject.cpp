@@ -67,6 +67,10 @@ SDL_Rect GameObject::FutureRect() {
   return future;
 }
 
+SDL_Rect GameObject::Rect() {
+  return rect;
+}
+
 bool GameObject::ObjectCollision(bool a) {
   if (a) {this->collision = true;
     return collision;}

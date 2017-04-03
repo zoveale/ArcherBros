@@ -26,13 +26,16 @@ class GameObject {
   ObjectDirection currentState;
   Movement move;
 
-  SDL_Point velocity;
+  SDL_Point velocity{5, 5};
 
   bool collision = false;
 
+  bool xCollision = false;
+  bool yCollision = false;
+
   Global global;
 
-  
+
 
   public:
   GameObject();
@@ -49,6 +52,7 @@ class GameObject {
   ~GameObject();
 
   SDL_Rect FutureRect();
+  SDL_Rect Rect();
   bool ObjectCollision(bool a);
 
 };
@@ -110,7 +114,33 @@ class Bluesquare: public GameObject {
 
 };
 
+//
 
+class Ball: public GameObject {
+
+  public:
+  void Position() {
+    move.Projectile(velocity, KEY, currentState);
+  }
+
+  void Collision() {
+    if (physics.CheckWidthCollision(rect)
+      /*|| xCollid with object*/) {
+      velocity.x *= -1;
+    }
+    if (physics.CheckHeightCollision(rect)
+      /*|| yCollid with object*/) {
+      velocity.y *= -1;
+    }
+  }
+
+  void Update() {
+    render.Update(currentState);
+    rect.x += velocity.x;
+    rect.y += velocity.y;
+  }
+
+};
 
 
 #endif //!GAMEOBJECT

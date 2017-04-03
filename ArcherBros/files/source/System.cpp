@@ -41,7 +41,11 @@ void System::Initialization() {
     "resource/blue_square_left.png", "resource/blue_square_right.png");
   BlueSquareTwo.Initialization(160, 240, 50, 50);
 
-  
+  PurpleBall.SetRenderer(renderer);
+  PurpleBall.InitDirectionalTextures("resource/purple_ball_idle.png",
+    "resource/purple_ball_idle.png","resource/purple_ball_idle.png",
+    "resource/purple_ball_idle.png","resource/purple_ball_idle.png");
+  PurpleBall.Initialization(320, 240, 40, 40);
 }
 
 void System::GameLoop() {
@@ -57,45 +61,49 @@ void System::GameLoop() {
     //Update Objects Positions
     RedSquareOne.Position();
     BlueSquareTwo.Position();
+    PurpleBall.Position();
    
-	//Checks Object Collision
-    if (physics.CheckObjectCollision(RedSquareOne.FutureRect(),
-      BlueSquareTwo.FutureRect())) {
-      RedSquareOne.ObjectCollision(true);
-      BlueSquareTwo.ObjectCollision(true);
-    }
+	  //Checks Object Collision
+    PlayerCollision();
 
-    //Update Objects Collision
+    //check Objects Collision and update velocity
     RedSquareOne.Collision();
     BlueSquareTwo.Collision();
+    PurpleBall.Collision();
 
     
     //Update Objects  Textures
     RedSquareOne.Update();
     BlueSquareTwo.Update();
-    
+    PurpleBall.Update();
 
     //Background Color (rgb, alpha)
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+    DrawLines(RedSquareOne.Rect(), BlueSquareTwo.Rect());
+    //DrawLines(RedSquareOne.FutureRect(), PurpleBall.Rect());
     SDL_SetRenderDrawColor(renderer, 48, 80, 48, 255);
-
+    
     //Clear Screen
     SDL_RenderClear(renderer);
-   
+    
     //Draw Objects
     RedSquareOne.Draw();
     BlueSquareTwo.Draw();
+    PurpleBall.Draw();
 
     //Update Screen
     SDL_RenderPresent(renderer);
 
-    RedSquareOne.ObjectCollision(false);
-    BlueSquareTwo.ObjectCollision(false);
+    //
+    ResetCollision();
   }
 }
 
 void System::Close() {
+
   RedSquareOne.Close();
   BlueSquareTwo.Close();
+  PurpleBall.Close();
 
   //Quit SDL subsystems
   SDL_DestroyRenderer(renderer);
@@ -107,3 +115,31 @@ void System::Close() {
 
 
 System::~System() {}
+
+
+
+void System::PlayerCollision() {
+  if (physics.CheckObjectCollision(
+    RedSquareOne.FutureRect(),
+    BlueSquareTwo.FutureRect())) {
+      RedSquareOne.ObjectCollision(true);
+      BlueSquareTwo.ObjectCollision(true);
+  }
+
+}
+
+void System::ResetCollision() {
+
+  RedSquareOne.ObjectCollision(false);
+  BlueSquareTwo.ObjectCollision(false);
+  PurpleBall.ObjectCollision(false);
+}
+
+void System::DrawLines(SDL_Rect& a, SDL_Rect& b) {
+  
+  SDL_RenderDrawLine(renderer, a.x, a.y + a.h, b.x+ b.w, b.y + b.h);
+  SDL_RenderDrawLine(renderer, a.x, a.y, b.x + b.w, b.y);
+  SDL_RenderDrawLine(renderer, a.x + a.w, a.y, b.x, b.y);
+  SDL_RenderDrawLine(renderer, a.x + a.w, a.y + a.h, b.x, b.y + b.h);
+  SDL_RenderPresent(renderer);
+}
