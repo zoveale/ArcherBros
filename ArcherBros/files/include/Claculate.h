@@ -2,14 +2,21 @@
 #define CALCULATE_H
 #include <math.h>
 #include <SDL.h>
+#include <iostream>
 class Calculate {
+  private:
+
+  int i,j;
 
   public:
+  Calculate(){i=0,j=0;}
 
   int Distance(int xOne, int yOne, int xTwo, int yTwo) {
+    //std::cout << sqrt((((xTwo - xOne) * (xTwo - xOne))
+                   // + ((yTwo - yOne) * (yTwo - yOne)))) << "\n";
 
-    return (int)sqrt( ((xTwo - xOne)^2)
-                    + ((yTwo - yOne)^2) );
+    return (int)sqrt(( ((xTwo - xOne)*(xTwo - xOne))
+                    + ((yTwo - yOne)*(yTwo - yOne)) ));
   }
 
   int aDistance(SDL_Rect rectA, SDL_Rect rectB) {

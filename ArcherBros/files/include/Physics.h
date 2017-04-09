@@ -19,6 +19,12 @@ class Physics {
     const SDL_Rect& rectB);
 
   bool xCollision(const SDL_Rect& a, const SDL_Rect& b);
+
+
+  bool HorzCollision(const SDL_Rect& rectA,
+    const SDL_Rect& rectB);
+  bool VertCollision(const SDL_Rect& rectA,
+    const SDL_Rect& rectB);
 };
 
 #endif // !PHYSICS_H

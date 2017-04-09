@@ -38,6 +38,7 @@ public:
 	~System();
 
   void PlayerCollision();
+  void HorzCollision();
   void ResetCollision();
   void DrawLines(SDL_Rect& a, SDL_Rect& b);
 };

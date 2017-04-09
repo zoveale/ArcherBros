@@ -70,18 +70,22 @@ public:
 
     if (velocity.x == 5 && 
       velocity.y == 5) {
-      std::cout << "Moving down right\n";
+      std::cout << "Moving down right\t" 
+        << velocity.x << " " << velocity.y << "\n";
     }
     else if (velocity.x == 5 &&
       (velocity.y)== -5) {
-      std::cout << "moving up right\n";
+      std::cout << "moving up right\t" 
+        << velocity.x << " "<< velocity.y << "\n";
     }
     else if ((-velocity.x) == velocity.y){
-      std::cout << "moving down left\n";
+      std::cout << "moving down left\t" 
+        << velocity.x << " " << velocity.y << "\n";
     }
     else if ((velocity.x == -5) &&
       (velocity.y == -5)){
-      std::cout << "moving up left\n";
+      std::cout << "moving up left\t" 
+        << velocity.x << " " << velocity.y << "\n";
     }
   }
 };

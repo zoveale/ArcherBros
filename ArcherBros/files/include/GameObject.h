@@ -54,7 +54,9 @@ class GameObject {
   SDL_Rect FutureRect();
   SDL_Rect Rect();
   bool ObjectCollision(bool a);
-
+  bool HorzCollision(bool a);
+  bool VertCollision(bool a);
+  void ResetCollision();
 };
 
 /*
@@ -125,11 +127,11 @@ class Ball: public GameObject {
 
   void Collision() {
     if (physics.CheckWidthCollision(rect)
-      /*|| xCollid with object*/) {
+      || xCollision) {
       velocity.x *= -1;
     }
     if (physics.CheckHeightCollision(rect)
-      /*|| yCollid with object*/) {
+      || yCollision) {
       velocity.y *= -1;
     }
   }
