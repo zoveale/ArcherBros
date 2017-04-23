@@ -68,7 +68,7 @@ public:
     //velocity.y = 5;
     current = ObjectDirection::UP;
 
-    if (velocity.x == 5 && 
+    /*if (velocity.x == 5 && 
       velocity.y == 5) {
       std::cout << "Moving down right\t" 
         << velocity.x << " " << velocity.y << "\n";
@@ -86,7 +86,7 @@ public:
       (velocity.y == -5)){
       std::cout << "moving up left\t" 
         << velocity.x << " " << velocity.y << "\n";
-    }
+    }*/
   }
 };
 #endif // !MOVEMENT_H

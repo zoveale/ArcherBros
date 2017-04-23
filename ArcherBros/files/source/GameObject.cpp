@@ -83,10 +83,7 @@ bool GameObject::HorzCollision(bool a) {
     this->xCollision = true;
     return xCollision;
   }
-  else {
-    this->xCollision = false;
-    return xCollision;
-  }
+  
 }
 
 bool GameObject::VertCollision(bool a) {

@@ -26,7 +26,7 @@ class GameObject {
   ObjectDirection currentState;
   Movement move;
 
-  SDL_Point velocity{5, 5};
+  SDL_Point velocity{2, 2};
 
   bool collision = false;
 

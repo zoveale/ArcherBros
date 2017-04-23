@@ -18,7 +18,7 @@ class Physics {
   bool CheckObjectCollision(const SDL_Rect& rectA,
     const SDL_Rect& rectB);
 
-  bool xCollision(const SDL_Rect& a, const SDL_Rect& b);
+  //bool xCollision(const SDL_Rect& a, const SDL_Rect& b);
 
 
   bool HorzCollision(const SDL_Rect& rectA,

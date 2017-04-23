@@ -65,20 +65,15 @@ void System::GameLoop() {
 
     //Checks Object Collision
     PlayerCollision();
+    HorzCollision();
 
     //check Objects Collision and update velocity
+
     RedSquareOne.Collision();
     BlueSquareTwo.Collision();
     PurpleBall.Collision();
-    HorzCollision();
-    //physics.xCollision(BlueSquareTwo.Rect(), PurpleBall.Rect());
-
-
-
-    //SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-    //DrawLines(BlueSquareTwo.Rect(), PurpleBall.Rect());
-    //DrawLines(RedSquareOne.Rect(), PurpleBall.Rect());
-    //SDL_RenderPresent(renderer);
+    
+    
 
     //Update Objects  Textures
     RedSquareOne.Update();
@@ -130,10 +125,12 @@ void System::PlayerCollision() {
 }
 
 void System::HorzCollision() {
+
   if (physics.HorzCollision(BlueSquareTwo.Rect(),
     PurpleBall.Rect())) {
     PurpleBall.HorzCollision(true);
   }
+
 }
 
 void System::ResetCollision() {
@@ -148,3 +145,7 @@ void System::DrawLines(SDL_Rect& a, SDL_Rect& b) {
   SDL_RenderDrawLine(renderer, a.x + a.w, a.y, b.x, b.y);
   SDL_RenderDrawLine(renderer, a.x + a.w, a.y + a.h, b.x, b.y + b.h);
 }
+//SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+//DrawLines(BlueSquareTwo.Rect(), PurpleBall.Rect());
+//DrawLines(RedSquareOne.Rect(), PurpleBall.Rect());
+//SDL_RenderPresent(renderer);
