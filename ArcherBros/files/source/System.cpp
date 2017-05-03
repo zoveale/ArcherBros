@@ -28,58 +28,43 @@ void System::Initialization() {
   }
 
   //Init GameObjects
+  LevelOne.SetRenderer(renderer);
+  LevelOne.Initialization(0, 0, 1920, 1080);
+  LevelOne.SetLevel();
+
+  
 
   RedSquareOne.SetRenderer(renderer);
   RedSquareOne.InitDirectionalTextures("resource/red_square_idel.png",
     "resource/red_square_up.png", "resource/red_square_down.png",
     "resource/red_square_left.png", "resource/red_square_right.png");
-  RedSquareOne.Initialization(480, 240, 50, 50);
-
-  BlueSquareTwo.SetRenderer(renderer);
-  BlueSquareTwo.InitDirectionalTextures("resource/blue_square_idel.png",
-    "resource/blue_square_up.png", "resource/blue_square_down.png",
-    "resource/blue_square_left.png", "resource/blue_square_right.png");
-  BlueSquareTwo.Initialization(160, 240, 50, 50);
-
-  PurpleBall.SetRenderer(renderer);
-  PurpleBall.InitDirectionalTextures("resource/purple_ball_idle.png",
-    "resource/purple_ball_idle.png", "resource/purple_ball_idle.png",
-    "resource/purple_ball_idle.png", "resource/purple_ball_idle.png");
-  PurpleBall.Initialization(320, 240, 40, 40);
+  RedSquareOne.Initialization(125, 240, 50, 50);
 }
 
 void System::GameLoop() {
 
   while (!input.Quit()) {
+    ResetCollision();
 
     //Input 
     input.Process();
     RedSquareOne.SetInput(input.GetInput());
-    BlueSquareTwo.SetInput(input.GetInput());
 
 
     //Update Objects Positions
     RedSquareOne.Position();
-    BlueSquareTwo.Position();
-    PurpleBall.Position();
 
     //Checks Object Collision
-    PlayerCollision();
-    HorzCollision();
 
     //check Objects Collision and update velocity
 
     RedSquareOne.Collision();
-    BlueSquareTwo.Collision();
-    PurpleBall.Collision();
     
-    
-
     //Update Objects  Textures
+    
     RedSquareOne.Update();
-    BlueSquareTwo.Update();
-    PurpleBall.Update();
-
+    
+    
     //Background Color (rgb, alpha)
 
     SDL_SetRenderDrawColor(renderer, 48, 80, 48, 255);
@@ -88,23 +73,23 @@ void System::GameLoop() {
     SDL_RenderClear(renderer);
 
     //Draw Objects
+    LevelOne.SOMETHING(LevelOne.GetLevel(), RedSquareOne.Camera());
+    //LevelOne.Draw();
+    
     RedSquareOne.Draw();
-    BlueSquareTwo.Draw();
-    PurpleBall.Draw();
-
+    
     //Update Screen
     SDL_RenderPresent(renderer);
 
     //
-    ResetCollision();
+    
   }
 }
 
 void System::Close() {
   //Destroy Textures
   RedSquareOne.Close();
-  BlueSquareTwo.Close();
-  PurpleBall.Close();
+  LevelOne.Close();
 
   //Quit SDL subsystems
   SDL_DestroyRenderer(renderer);
@@ -116,27 +101,14 @@ void System::Close() {
 System::~System() {}
 
 void System::PlayerCollision() {
-  if (physics.CheckObjectCollision(
-    RedSquareOne.FutureRect(),
-    BlueSquareTwo.FutureRect())) {
-    RedSquareOne.ObjectCollision(true);
-    BlueSquareTwo.ObjectCollision(true);
-  }
 }
 
 void System::HorzCollision() {
-
-  if (physics.HorzCollision(BlueSquareTwo.Rect(),
-    PurpleBall.Rect())) {
-    PurpleBall.HorzCollision(true);
-  }
 
 }
 
 void System::ResetCollision() {
   RedSquareOne.ResetCollision();
-  BlueSquareTwo.ResetCollision();
-  PurpleBall.ResetCollision();
 }
 
 void System::DrawLines(SDL_Rect& a, SDL_Rect& b) {
@@ -145,7 +117,3 @@ void System::DrawLines(SDL_Rect& a, SDL_Rect& b) {
   SDL_RenderDrawLine(renderer, a.x + a.w, a.y, b.x, b.y);
   SDL_RenderDrawLine(renderer, a.x + a.w, a.y + a.h, b.x, b.y + b.h);
 }
-//SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-//DrawLines(BlueSquareTwo.Rect(), PurpleBall.Rect());
-//DrawLines(RedSquareOne.Rect(), PurpleBall.Rect());
-//SDL_RenderPresent(renderer);

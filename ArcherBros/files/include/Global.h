@@ -3,8 +3,8 @@
 
 class Global {
   private:
-  const int LEVEL_WIDTH = 640;
-  const int LEVEL_HEIGHT = 480;
+  const int LEVEL_WIDTH = 1920;
+  const int LEVEL_HEIGHT = 1080;
   
   const int SCREEN_WIDTH = 640;
   const int SCREEN_HEIGHT = 480;

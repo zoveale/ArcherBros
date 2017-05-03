@@ -29,6 +29,8 @@ public:
 		}
 	}
 
+  void SetState(SDL_Texture* state){this->currentState = state;}
+
   void AddState(SDL_Texture* state) {this->state.push_back(state); }
 	SDL_Texture* GetState() const { return currentState; }
 

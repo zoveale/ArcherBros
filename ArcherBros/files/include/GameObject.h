@@ -19,7 +19,9 @@ class GameObject {
   protected:
   SDL_Renderer* renderer;
   KEY_STATE KEY;
+
   SDL_Rect rect;
+  SDL_Rect camera;
 
   Physics physics;
   Render render;
@@ -53,15 +55,45 @@ class GameObject {
 
   SDL_Rect FutureRect();
   SDL_Rect Rect();
+  SDL_Rect Camera();
   bool ObjectCollision(bool a);
   bool HorzCollision(bool a);
   bool VertCollision(bool a);
   void ResetCollision();
+  
+
+  void SetVelocity(int x, int y);
+  SDL_Point GetVeloctiy();
+
 };
 
 /*
 Game Objects made from GameObject template class
 */
+
+class LevelSet : public GameObject{
+  private:
+
+  SDL_Texture* levelOne;
+
+  public:
+  SDL_Texture* GetLevel() {
+    return levelOne;
+  }
+  void SOMETHING(SDL_Texture* level, SDL_Rect camera) {
+    SDL_RenderCopy(renderer, level, &camera, NULL);
+  }
+  void SetLevel() {
+
+    levelOne = LoadTexture("resource/Map.png");
+    render.SetState(levelOne);
+  }
+
+  void Update() {
+    render.Update(currentState);
+  }
+};
+
 class Redsquare: public GameObject {
   public:
   void Position() {
@@ -87,63 +119,10 @@ class Redsquare: public GameObject {
     render.Update(currentState);
     rect.x += velocity.x;
     rect.y += velocity.y;
+    camera.x = rect.x;
+    camera.y = rect.y;
   }
 };
-
-class Bluesquare: public GameObject {
-  public:
-
-  void Position() {
-    move.PlayerTwo(velocity, KEY, currentState);
-  }
-
-  void Collision() {
-    if (collision) {
-      velocity.x = 0;
-      velocity.y = 0;
-    }
-    if (physics.CheckWindowCollision(FutureRect())) {
-      velocity.x = 0;
-      velocity.y = 0;
-    }
-  }
-
-  void Update() {
-    render.Update(currentState);
-    rect.x += velocity.x;
-    rect.y += velocity.y;
-  }
-
-};
-
-//
-
-class Ball: public GameObject {
-
-  public:
-  void Position() {
-    move.Projectile(velocity, KEY, currentState);
-  }
-
-  void Collision() {
-    if (physics.CheckWidthCollision(rect)
-      || xCollision) {
-      velocity.x *= -1;
-    }
-    if (physics.CheckHeightCollision(rect)
-      || yCollision) {
-      velocity.y *= -1;
-    }
-  }
-
-  void Update() {
-    render.Update(currentState);
-    rect.x += velocity.x;
-    rect.y += velocity.y;
-  }
-
-};
-
 
 #endif //!GAMEOBJECT
 

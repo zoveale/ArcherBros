@@ -35,6 +35,7 @@ void GameObject::Initialization(int x,
   int y, int w, int h)
 {
 	rect = { x, y, w, h };
+  camera = {x, y, 640, 480};
 }
 
 void GameObject::Draw()
@@ -71,6 +72,10 @@ SDL_Rect GameObject::Rect() {
   return rect;
 }
 
+SDL_Rect GameObject::Camera() {
+  return camera;
+}
+
 bool GameObject::ObjectCollision(bool a) {
   if (a) {this->collision = true;
     return collision;}
@@ -101,6 +106,17 @@ void GameObject::ResetCollision() {
   this->collision = false;
   this->xCollision = false;
   this->yCollision = false;
+}
+
+void GameObject::SetVelocity(int x, int y) {
+
+  this->velocity.x = x;
+  this->velocity.y = y;
+
+}
+
+SDL_Point GameObject::GetVeloctiy() {
+  return velocity;
 }
 
 

@@ -100,14 +100,17 @@ bool Physics::CheckObjectCollision(const SDL_Rect& a,
 //  return false;
 //}
 
-bool Physics::HorzCollision(const SDL_Rect & rectA, const SDL_Rect & rectB) {
+bool Physics::HorzCollision(const SDL_Rect & rectPlayer, const SDL_Rect & rectBall) {
  
   
-  if ((rectA.x >= (rectB.x + rectB.w)) 
-    || ((rectA.x + rectA.w) >= rectB.x)) {
+  if (((rectPlayer.x + rectPlayer.w) >= rectBall.x))
+     {
     std::cout << " 1\n";
     return true;
  }
+  else {
+    return false;
+  }
  
   
  // return false;

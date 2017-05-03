@@ -17,12 +17,10 @@ private:
 	Input input;
 	Physics physics;
 
-
- 
+  
+  LevelSet LevelOne;
   //Create GameObjects from Classes made from template
   Redsquare RedSquareOne;
-	Bluesquare BlueSquareTwo;
-  Ball PurpleBall;
 
   //FIX ME:: will add fuctions later to SDL create window
   Global global;
@@ -37,6 +35,8 @@ public:
 	void Close();
 	~System();
 
+
+  //Old Fuctions
   void PlayerCollision();
   void HorzCollision();
   void ResetCollision();
