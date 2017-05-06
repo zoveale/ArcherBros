@@ -36,13 +36,11 @@ void GameObject::Initialization(int x, int y,
 {
 	this->rect = { x, y, w, h };
 
-  this->camera = {x - 295, y - 215, 640, 480};
+  this->camera = {x, y, global.SCREEN_W(), global.SCREEN_H()};
 }
 
 void GameObject::Draw()
 {
-  rect.x -= camera.x;
-  rect.y -= camera.y;
 	SDL_RenderCopy(renderer, render.GetState(), NULL, &rect);
 }
 

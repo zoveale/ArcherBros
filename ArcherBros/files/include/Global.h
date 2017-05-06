@@ -12,11 +12,11 @@ class Global {
 
   public:
 
-  const int LEVELWIDTH(){return LEVEL_WIDTH;}
-  const int LEVELHEIGHT(){return LEVEL_HEIGHT;}
+  const int LEVEL_W(){return LEVEL_WIDTH;}
+  const int LEVEL_H(){return LEVEL_HEIGHT;}
 
-  const int SCREENWIDTH(){return SCREEN_WIDTH;}
-  const int SCREENHEIGHT(){return SCREEN_HEIGHT;}
+  const int SCREEN_W(){return SCREEN_WIDTH;}
+  const int SCREEN_H(){return SCREEN_HEIGHT;}
   
 };
 #endif // ! GLOBAL_H

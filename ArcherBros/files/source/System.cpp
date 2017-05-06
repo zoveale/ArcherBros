@@ -29,7 +29,8 @@ void System::Initialization() {
   
   //Init GameObjects
   LevelOne.SetRenderer(renderer);
-  LevelOne.Initialization(0, 0, 1920, 1080);
+  LevelOne.Initialization(0, 0,
+        global.LEVEL_W(), global.LEVEL_H());
   LevelOne.SetLevel();
 
   

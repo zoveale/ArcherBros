@@ -130,11 +130,11 @@ class Redsquare: public GameObject {
     /**/
     if (camera.x < 0) { camera.x = 0; }
     if (camera.y < 0) { camera.y = 0; }
-    if (camera.x > (global.LEVELWIDTH() - camera.w)) {
-      camera.x = (global.LEVELWIDTH() - camera.w);
+    if (camera.x > (global.LEVEL_W() - camera.w)) {
+      camera.x = (global.LEVEL_W() - camera.w);
     }
-    if (camera.y >(global.LEVELHEIGHT() - camera.h)) {
-      camera.y = (global.LEVELHEIGHT() - camera.h);
+    if (camera.y >(global.LEVEL_H() - camera.h)) {
+      camera.y = (global.LEVEL_H() - camera.h);
     } 
   }
 
