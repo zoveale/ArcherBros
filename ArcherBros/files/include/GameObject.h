@@ -75,13 +75,15 @@ class LevelSet : public GameObject{
   private:
 
   SDL_Texture* levelOne;
-
+  
   public:
   SDL_Texture* GetLevel() {
     return levelOne;
   }
-  void SOMETHING(SDL_Texture* level, SDL_Rect camera) {
-    SDL_RenderCopy(renderer, level, &camera, NULL);
+  /**/
+  void CameraVeiw(SDL_Rect* camClip) {
+    SDL_RenderCopy(renderer, levelOne,
+                   camClip, NULL);
   }
   void SetLevel() {
 
@@ -117,10 +119,34 @@ class Redsquare: public GameObject {
   }
   void Update() {
     render.Update(currentState);
+   
     rect.x += velocity.x;
     rect.y += velocity.y;
-    camera.x = rect.x;
-    camera.y = rect.y;
+
+    this->camera.x = (rect.x + (rect.w / 2)) - 320;
+    this->camera.y = (rect.y + (rect.h / 2)) - 240;
+    
+    std::cout << rect.x << ", " << rect.y << "\n";
+    /**/
+    if (camera.x < 0) { camera.x = 0; }
+    if (camera.y < 0) { camera.y = 0; }
+    if (camera.x > (global.LEVELWIDTH() - camera.w)) {
+      camera.x = (global.LEVELWIDTH() - camera.w);
+    }
+    if (camera.y >(global.LEVELHEIGHT() - camera.h)) {
+      camera.y = (global.LEVELHEIGHT() - camera.h);
+    } 
+  }
+
+  /**/
+  int CamX() { return camera.x; }
+  int CamY() { return camera.y; }
+
+  /**/
+  void DrawCamView(int x, int y) 
+  {
+    SDL_Rect test = {rect.x - x, rect.y - y,rect.w, rect.h };
+    SDL_RenderCopy(renderer, render.GetState(), NULL, &test);
   }
 };
 

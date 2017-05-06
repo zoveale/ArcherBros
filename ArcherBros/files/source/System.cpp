@@ -13,7 +13,7 @@ void System::Initialization() {
   //FIX ME:: add fuctions for screen Height and width
   window = SDL_CreateWindow("Archer BROS!",
     SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-    global.SCREENWIDTH(), global.SCREENHEIGHT(),
+    640, 480,
     SDL_WINDOW_SHOWN);
 
 
@@ -26,7 +26,7 @@ void System::Initialization() {
     printf("IMG_Init: Failed to init required jpg and png support!\n");
     printf("IMG_Init: %s\n", IMG_GetError());
   }
-
+  
   //Init GameObjects
   LevelOne.SetRenderer(renderer);
   LevelOne.Initialization(0, 0, 1920, 1080);
@@ -38,7 +38,7 @@ void System::Initialization() {
   RedSquareOne.InitDirectionalTextures("resource/red_square_idel.png",
     "resource/red_square_up.png", "resource/red_square_down.png",
     "resource/red_square_left.png", "resource/red_square_right.png");
-  RedSquareOne.Initialization(125, 240, 50, 50);
+  RedSquareOne.Initialization(1000, 500, 50, 50);
 }
 
 void System::GameLoop() {
@@ -67,16 +67,22 @@ void System::GameLoop() {
     
     //Background Color (rgb, alpha)
 
-    SDL_SetRenderDrawColor(renderer, 48, 80, 48, 255);
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 
     //Clear Screen
     SDL_RenderClear(renderer);
-
+    
     //Draw Objects
-    LevelOne.SOMETHING(LevelOne.GetLevel(), RedSquareOne.Camera());
+    LevelOne.CameraVeiw(&RedSquareOne.Camera());
+
     //LevelOne.Draw();
     
-    RedSquareOne.Draw();
+
+    //RedSquareOne.Draw();
+    RedSquareOne.DrawCamView(RedSquareOne.CamX(),
+                          RedSquareOne.CamY());
+
+    //DrawLines(RedSquareOne.FutureRect(), RedSquareOne.Camera());
     
     //Update Screen
     SDL_RenderPresent(renderer);
@@ -100,20 +106,17 @@ void System::Close() {
 
 System::~System() {}
 
-void System::PlayerCollision() {
-}
+void System::PlayerCollision() {}
 
-void System::HorzCollision() {
-
-}
+void System::HorzCollision() {}
 
 void System::ResetCollision() {
   RedSquareOne.ResetCollision();
 }
 
 void System::DrawLines(SDL_Rect& a, SDL_Rect& b) {
-  SDL_RenderDrawLine(renderer, a.x, a.y + a.h, b.x + b.w, b.y + b.h);
-  SDL_RenderDrawLine(renderer, a.x, a.y, b.x + b.w, b.y);
-  SDL_RenderDrawLine(renderer, a.x + a.w, a.y, b.x, b.y);
-  SDL_RenderDrawLine(renderer, a.x + a.w, a.y + a.h, b.x, b.y + b.h);
+  SDL_RenderDrawLine(renderer, a.x, a.y, b.x, b.y);
+  SDL_RenderDrawLine(renderer, a.x + a.w, a.y, b.x + b.w, b.y);
+  SDL_RenderDrawLine(renderer, a.x, a.y + a.h, b.x, b.y + b.h);
+  SDL_RenderDrawLine(renderer, a.x + a.w, a.y + a.h, b.x + b.w, b.y + b.h);
 }

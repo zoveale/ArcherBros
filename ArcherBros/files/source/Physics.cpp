@@ -3,8 +3,8 @@
 
 
 bool Physics::CheckWindowCollision(const SDL_Rect & rect) {
-  if (rect.x < 0 || ((rect.x + rect.w) > global.LEVELWIDTH())
-    || rect.y < 0 || ((rect.y + rect.h) > global.LEVELHEIGHT())) {
+  if (rect.x < 0 || ((rect.x + rect.w) > 1920)
+    || rect.y < 0 || ((rect.y + rect.h) > 1080)) {
     return true;
   }
 

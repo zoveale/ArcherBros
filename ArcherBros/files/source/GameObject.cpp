@@ -31,15 +31,18 @@ bool GameObject::InitDirectionalTextures(std::string idel, std::string up,
 
 
 
-void GameObject::Initialization(int x,
-  int y, int w, int h)
+void GameObject::Initialization(int x, int y,
+                                int w, int h)
 {
-	rect = { x, y, w, h };
-  camera = {x, y, 640, 480};
+	this->rect = { x, y, w, h };
+
+  this->camera = {x - 295, y - 215, 640, 480};
 }
 
 void GameObject::Draw()
 {
+  rect.x -= camera.x;
+  rect.y -= camera.y;
 	SDL_RenderCopy(renderer, render.GetState(), NULL, &rect);
 }
 
