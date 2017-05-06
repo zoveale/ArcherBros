@@ -2,9 +2,7 @@
 
 
 
-System::System() {
-
-}
+System::System() {}
 
 void System::Initialization() {
 
@@ -14,9 +12,10 @@ void System::Initialization() {
 
   //FIX ME:: add fuctions for screen Height and width
   window = SDL_CreateWindow("Archer BROS!",
-    SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,
-    global.SCREEN_HEIGHT, global.SCREEN_WIDTH,
+    SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+    640, 480,
     SDL_WINDOW_SHOWN);
+
 
   renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 
@@ -27,82 +26,76 @@ void System::Initialization() {
     printf("IMG_Init: Failed to init required jpg and png support!\n");
     printf("IMG_Init: %s\n", IMG_GetError());
   }
-
-
+  
   //Init GameObjects
+  LevelOne.SetRenderer(renderer);
+  LevelOne.Initialization(0, 0, 1920, 1080);
+  LevelOne.SetLevel();
+
+  
 
   RedSquareOne.SetRenderer(renderer);
   RedSquareOne.InitDirectionalTextures("resource/red_square_idel.png",
     "resource/red_square_up.png", "resource/red_square_down.png",
     "resource/red_square_left.png", "resource/red_square_right.png");
-  RedSquareOne.Initialization(480, 240, 50, 50);
-
-  BlueSquareTwo.SetRenderer(renderer);
-  BlueSquareTwo.InitDirectionalTextures("resource/blue_square_idel.png",
-    "resource/blue_square_up.png", "resource/blue_square_down.png",
-    "resource/blue_square_left.png", "resource/blue_square_right.png");
-  BlueSquareTwo.Initialization(160, 240, 50, 50);
-
-  
+  RedSquareOne.Initialization(1000, 500, 50, 50);
 }
 
 void System::GameLoop() {
-  
+
   while (!input.Quit()) {
-    
+    ResetCollision();
 
     //Input 
     input.Process();
     RedSquareOne.SetInput(input.GetInput());
-    BlueSquareTwo.SetInput(input.GetInput());
 
 
     //Update Objects Positions
     RedSquareOne.Position();
-    BlueSquareTwo.Position();
-   
-	//Checks Object Collision
-    if (physics.CheckObjectCollision(RedSquareOne.Rect(),
-      BlueSquareTwo.Rect())) {
-      RedSquareOne.ObjectCollision(true);
-      BlueSquareTwo.ObjectCollision(true);
-    }
 
-    //Update Objects Collision
+    //Checks Object Collision
+
+    //check Objects Collision and update velocity
+
     RedSquareOne.Collision();
-    BlueSquareTwo.Collision();
-
     
     //Update Objects  Textures
-    RedSquareOne.Update();
-    BlueSquareTwo.Update();
     
-
+    RedSquareOne.Update();
+    
+    
     //Background Color (rgb, alpha)
-    SDL_SetRenderDrawColor(renderer, 48, 80, 48, 255);
+
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 
     //Clear Screen
     SDL_RenderClear(renderer);
-
-    //Background Image
-    //LevelMap.Update();
-   
-
+    
     //Draw Objects
-    RedSquareOne.Draw();
-    BlueSquareTwo.Draw();
+    LevelOne.CameraVeiw(&RedSquareOne.Camera());
 
+    //LevelOne.Draw();
+    
+
+    //RedSquareOne.Draw();
+    RedSquareOne.DrawCamView(RedSquareOne.CamX(),
+                          RedSquareOne.CamY());
+
+    //DrawLines(RedSquareOne.FutureRect(), RedSquareOne.Camera());
+    
     //Update Screen
     SDL_RenderPresent(renderer);
 
-    RedSquareOne.ObjectCollision(false);
-    BlueSquareTwo.ObjectCollision(false);
+    //
+    
   }
 }
 
 void System::Close() {
+  //Destroy Textures
   RedSquareOne.Close();
-  BlueSquareTwo.Close();
+  LevelOne.Close();
 
   //Quit SDL subsystems
   SDL_DestroyRenderer(renderer);
@@ -111,6 +104,19 @@ void System::Close() {
   SDL_Quit();
 }
 
-
-
 System::~System() {}
+
+void System::PlayerCollision() {}
+
+void System::HorzCollision() {}
+
+void System::ResetCollision() {
+  RedSquareOne.ResetCollision();
+}
+
+void System::DrawLines(SDL_Rect& a, SDL_Rect& b) {
+  SDL_RenderDrawLine(renderer, a.x, a.y, b.x, b.y);
+  SDL_RenderDrawLine(renderer, a.x + a.w, a.y, b.x + b.w, b.y);
+  SDL_RenderDrawLine(renderer, a.x, a.y + a.h, b.x, b.y + b.h);
+  SDL_RenderDrawLine(renderer, a.x + a.w, a.y + a.h, b.x + b.w, b.y + b.h);
+}

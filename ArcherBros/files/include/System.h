@@ -7,9 +7,6 @@
 
 #include "../include/Input.h"
 #include "../include/GameObject.h"
-#include "../include/BackgroundLevels.h"
-
-
 
 class System
 {
@@ -20,27 +17,30 @@ private:
 	Input input;
 	Physics physics;
 
-
-  BackgroundLevel LevelMap;
+  
+  LevelSet LevelOne;
   //Create GameObjects from Classes made from template
   Redsquare RedSquareOne;
-	Bluesquare BlueSquareTwo;
 
   //FIX ME:: will add fuctions later to SDL create window
   Global global;
 
-  
 public:
 	System();
 
-	void Initialization();
-	void GameLoop();
-
   
 
+	void Initialization();
+	void GameLoop();
 	void Close();
-
 	~System();
+
+
+  //Old Fuctions
+  void PlayerCollision();
+  void HorzCollision();
+  void ResetCollision();
+  void DrawLines(SDL_Rect& a, SDL_Rect& b);
 };
 
 #endif //!SYSTEM_H

@@ -31,15 +31,18 @@ bool GameObject::InitDirectionalTextures(std::string idel, std::string up,
 
 
 
-void GameObject::Initialization(int x,
-  int y, int w, int h)
+void GameObject::Initialization(int x, int y,
+                                int w, int h)
 {
-	rect = { x, y, w, h };
+	this->rect = { x, y, w, h };
+
+  this->camera = {x - 295, y - 215, 640, 480};
 }
 
 void GameObject::Draw()
 {
-  
+  rect.x -= camera.x;
+  rect.y -= camera.y;
 	SDL_RenderCopy(renderer, render.GetState(), NULL, &rect);
 }
 
@@ -68,6 +71,14 @@ SDL_Rect GameObject::FutureRect() {
   return future;
 }
 
+SDL_Rect GameObject::Rect() {
+  return rect;
+}
+
+SDL_Rect GameObject::Camera() {
+  return camera;
+}
+
 bool GameObject::ObjectCollision(bool a) {
   if (a) {this->collision = true;
     return collision;}
@@ -75,6 +86,41 @@ bool GameObject::ObjectCollision(bool a) {
     return collision;}
 }
 
+bool GameObject::HorzCollision(bool a) {
+  if (a) {
+    this->xCollision = true;
+    return xCollision;
+  }
+  
+}
+
+bool GameObject::VertCollision(bool a) {
+  if (a) {
+    this->yCollision = true;
+    return yCollision;
+  }
+  else {
+    this->yCollision = false;
+    return yCollision;
+  }
+}
+
+void GameObject::ResetCollision() {
+  this->collision = false;
+  this->xCollision = false;
+  this->yCollision = false;
+}
+
+void GameObject::SetVelocity(int x, int y) {
+
+  this->velocity.x = x;
+  this->velocity.y = y;
+
+}
+
+SDL_Point GameObject::GetVeloctiy() {
+  return velocity;
+}
 
 
 

@@ -2,66 +2,65 @@
 #define MOVEMENT_H
 
 #include <SDL.h>
+#include <iostream>
 #include "../include/Input.h"
 
 class Movement {
-public:
+  public:
 
-	void PlayerOne(SDL_Point& velocity, const KEY_STATE& KEY,
-		ObjectDirection& current) {
+  void PlayerOne(SDL_Point& velocity, const KEY_STATE& KEY,
+    ObjectDirection& current) {
 
-		velocity.x = 0;
-		velocity.y = 0;
+    velocity.x = 0;
+    velocity.y = 0;
 
-		if (KEY.UP) {
-			velocity.y = -10;
-			current = ObjectDirection::UP;
-		}
-		if (KEY.DOWN) {
-			velocity.y = 10;
-			current = ObjectDirection::DOWN;
-		}
-		if (KEY.LEFT) {
-			velocity.x = -10;
-			current = ObjectDirection::LEFT;
-		}
-		if (KEY.RIGHT) {
-			velocity.x = 10;
-			current = ObjectDirection::RIGHT;
-		}
-		if ((velocity.x == 0) && (velocity.y == 0)) {
-			current = ObjectDirection::IDEL;
-		}
+    if (KEY.W) {
+      velocity.y = -10;
+      current = ObjectDirection::UP;
+    }
+    if (KEY.S) {
+      velocity.y = 10;
+      current = ObjectDirection::DOWN;
+    }
+    if (KEY.A) {
+      velocity.x = -10;
+      current = ObjectDirection::LEFT;
+    }
+    if (KEY.D) {
+      velocity.x = 10;
+      current = ObjectDirection::RIGHT;
+    }
+    if ((velocity.x == 0) && (velocity.y == 0)) {
+      current = ObjectDirection::IDEL;
+    }
+  }
 
-	}
+  //
+  void PlayerTwo(SDL_Point& velocity, const KEY_STATE& KEY,
+    ObjectDirection& current) {
 
-	void PlayerTwo(SDL_Point& velocity, const KEY_STATE& KEY,
-		ObjectDirection& current) {
+    velocity.x = 0;
+    velocity.y = 0;
 
-		velocity.x = 0;
-		velocity.y = 0;
-
-		if (KEY.W) {
-			velocity.y = -10;
-			current = ObjectDirection::UP;
-		}
-		if (KEY.S) {
-			velocity.y = 10;
-			current = ObjectDirection::DOWN;
-		}
-		if (KEY.A) {
-			velocity.x = -10;
-			current = ObjectDirection::LEFT;
-		}
-		if (KEY.D) {
-			velocity.x = 10;
-			current = ObjectDirection::RIGHT;
-		}
-		if ((velocity.x == 0) && (velocity.y == 0)) {
-			current = ObjectDirection::IDEL;
-		}
-
-	}
-
+    if (KEY.UP) {
+      velocity.y = -10;
+      current = ObjectDirection::UP;
+    }
+    if (KEY.DOWN) {
+      velocity.y = 10;
+      current = ObjectDirection::DOWN;
+    }
+    if (KEY.LEFT) {
+      velocity.x = -10;
+      current = ObjectDirection::LEFT;
+    }
+    if (KEY.RIGHT) {
+      velocity.x = 10;
+      current = ObjectDirection::RIGHT;
+    }
+    if ((velocity.x == 0) && (velocity.y == 0)) {
+      current = ObjectDirection::IDEL;
+    }
+  }
 };
 #endif // !MOVEMENT_H
