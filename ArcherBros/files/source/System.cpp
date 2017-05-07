@@ -40,6 +40,18 @@ void System::Initialization() {
     "resource/red_square_up.png", "resource/red_square_down.png",
     "resource/red_square_left.png", "resource/red_square_right.png");
   RedSquareOne.Initialization(1000, 500, 50, 50);
+
+  Tree[0].SetRenderer(renderer);
+  Tree[0].SetTreeTexture("resource/treeOne.png");
+  Tree[0].Initialization(0, 0, 32, 32);
+
+  Tree[1].SetRenderer(renderer);
+  Tree[1].SetTreeTexture("resource/treeTwo.png");
+  Tree[1].Initialization(32, 0, 64, 64);
+
+  Tree[2].SetRenderer(renderer);
+  Tree[2].SetTreeTexture("resource/treeThree.png");
+  Tree[2].Initialization(96, 0, 128, 128);
 }
 
 void System::GameLoop() {
@@ -76,13 +88,11 @@ void System::GameLoop() {
     //Draw Objects
     LevelOne.CameraVeiw(&RedSquareOne.Camera());
 
-    //LevelOne.Draw();
-    
-
-    //RedSquareOne.Draw();
     RedSquareOne.DrawCamView(RedSquareOne.CamX(),
-                          RedSquareOne.CamY());
-
+                             RedSquareOne.CamY());
+    Tree[0].Draw();
+    Tree[1].Draw();
+    Tree[2].Draw();
     //DrawLines(RedSquareOne.FutureRect(), RedSquareOne.Camera());
     
     //Update Screen

@@ -21,6 +21,7 @@ private:
   LevelSet LevelOne;
   //Create GameObjects from Classes made from template
   Redsquare RedSquareOne;
+  Trees Tree[3];
 
   //FIX ME:: will add fuctions later to SDL create window
   Global global;

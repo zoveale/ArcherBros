@@ -145,11 +145,26 @@ class Redsquare: public GameObject {
   /**/
   void DrawCamView(int x, int y) 
   {
-    SDL_Rect test = {rect.x - x, rect.y - y,rect.w, rect.h };
-    SDL_RenderCopy(renderer, render.GetState(), NULL, &test);
+    SDL_Rect cam = {rect.x - x, rect.y - y,
+                     rect.w, rect.h };
+    SDL_RenderCopy(renderer, render.GetState(),
+                   NULL, &cam);
   }
 };
 
+class Trees: public GameObject{
+  private:
+  SDL_Texture* texture;
+  public:
+  void SetTreeTexture(std::string texturePath) {
+    texture = LoadTexture(texturePath);
+    render.SetState(texture);
+  }
+  void Update() {
+
+  }
+
+};
 #endif //!GAMEOBJECT
 
 /*
