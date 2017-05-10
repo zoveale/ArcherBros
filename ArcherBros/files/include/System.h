@@ -21,7 +21,7 @@ private:
   LevelSet LevelOne;
   //Create GameObjects from Classes made from template
   Redsquare RedSquareOne;
-  Trees Tree[3];
+  Trees Tree[32];
 
   //FIX ME:: will add fuctions later to SDL create window
   Global global;
@@ -36,9 +36,10 @@ public:
 	void Close();
 	~System();
 
+  void InitTrees();
 
   //Old Fuctions
-  void PlayerCollision();
+  bool PlayerCollision();
   void HorzCollision();
   void ResetCollision();
   void DrawLines(SDL_Rect& a, SDL_Rect& b);

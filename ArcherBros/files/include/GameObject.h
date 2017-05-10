@@ -163,6 +163,13 @@ class Trees: public GameObject{
   void Update() {
 
   }
+  void DrawPosition(int x, int y) {
+    SDL_Rect pos = {rect.x - x, rect.y- y,
+        rect.w, rect.h};
+    SDL_RenderCopy(renderer, render.GetState(),
+                   NULL, &pos);
+  }
+  
 
 };
 #endif //!GAMEOBJECT

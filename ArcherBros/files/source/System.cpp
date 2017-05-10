@@ -26,32 +26,23 @@ void System::Initialization() {
     printf("IMG_Init: Failed to init required jpg and png support!\n");
     printf("IMG_Init: %s\n", IMG_GetError());
   }
-  
+
   //Init GameObjects
   LevelOne.SetRenderer(renderer);
   LevelOne.Initialization(0, 0,
-        global.LEVEL_W(), global.LEVEL_H());
+    global.LEVEL_W(), global.LEVEL_H());
   LevelOne.SetLevel();
 
-  
+
 
   RedSquareOne.SetRenderer(renderer);
   RedSquareOne.InitDirectionalTextures("resource/red_square_idel.png",
     "resource/red_square_up.png", "resource/red_square_down.png",
     "resource/red_square_left.png", "resource/red_square_right.png");
-  RedSquareOne.Initialization(1000, 500, 50, 50);
+  RedSquareOne.Initialization(0, 0, 50, 50);
 
-  Tree[0].SetRenderer(renderer);
-  Tree[0].SetTreeTexture("resource/treeOne.png");
-  Tree[0].Initialization(0, 0, 32, 32);
+  InitTrees();
 
-  Tree[1].SetRenderer(renderer);
-  Tree[1].SetTreeTexture("resource/treeTwo.png");
-  Tree[1].Initialization(32, 0, 64, 64);
-
-  Tree[2].SetRenderer(renderer);
-  Tree[2].SetTreeTexture("resource/treeThree.png");
-  Tree[2].Initialization(96, 0, 128, 128);
 }
 
 void System::GameLoop() {
@@ -70,36 +61,41 @@ void System::GameLoop() {
     //Checks Object Collision
 
     //check Objects Collision and update velocity
-
+    RedSquareOne.ObjectCollision(PlayerCollision());
     RedSquareOne.Collision();
-    
+
     //Update Objects  Textures
-    
+
     RedSquareOne.Update();
-    
-    
+
+
     //Background Color (rgb, alpha)
 
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 
     //Clear Screen
     SDL_RenderClear(renderer);
-    
+
     //Draw Objects
     LevelOne.CameraVeiw(&RedSquareOne.Camera());
 
+    for (int i = 0; i < 32; i++) {
+      Tree[i].DrawPosition(RedSquareOne.CamX(),
+        RedSquareOne.CamY());
+    }
+
     RedSquareOne.DrawCamView(RedSquareOne.CamX(),
-                             RedSquareOne.CamY());
-    Tree[0].Draw();
-    Tree[1].Draw();
-    Tree[2].Draw();
-    //DrawLines(RedSquareOne.FutureRect(), RedSquareOne.Camera());
-    
-    //Update Screen
+      RedSquareOne.CamY());
+
+
+
+//DrawLines(RedSquareOne.FutureRect(), RedSquareOne.Camera());
+
+//Update Screen
     SDL_RenderPresent(renderer);
 
     //
-    
+
   }
 }
 
@@ -107,6 +103,7 @@ void System::Close() {
   //Destroy Textures
   RedSquareOne.Close();
   LevelOne.Close();
+  
 
   //Quit SDL subsystems
   SDL_DestroyRenderer(renderer);
@@ -117,12 +114,46 @@ void System::Close() {
 
 System::~System() {}
 
-void System::PlayerCollision() {}
+bool System::PlayerCollision() {
+
+  for (int i = 0; i < 32; i++) {
+    if (physics.CheckObjectCollision(
+      RedSquareOne.FutureRect(),
+      Tree[i].Rect())){
+      return true;
+    }
+  }
+  return false;
+}
 
 void System::HorzCollision() {}
 
 void System::ResetCollision() {
   RedSquareOne.ResetCollision();
+}
+
+
+void System::InitTrees() {
+  int h = 0;
+  int x = 60;
+  int y = 100;
+  for (int u = 0; u < 32; u++) {
+    Tree[u].SetRenderer(renderer);
+    Tree[u].SetTreeTexture("resource/treeThree.png");
+
+  }
+  for (int j = 0; j < 4; j++) {
+    for (int i = 0; i < 8; i++) {
+      Tree[h].Initialization(x, y, 128, 128);
+      std::cout << "h = " << h << "\n";
+      h += 1;
+      x += 240;
+    }
+    y += 245;
+    x = 60;
+  }
+
+  SDL_Delay(1000);
 }
 
 void System::DrawLines(SDL_Rect& a, SDL_Rect& b) {

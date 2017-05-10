@@ -63,7 +63,7 @@ bool Physics::CheckObjectCollision(const SDL_Rect& a,
   if (leftA >= rightB) {
     return false;
   }
-
+  std::cout << "HIT\n";
   //If none of the sides from A are outside B
   return true;
 }
