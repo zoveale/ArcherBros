@@ -130,11 +130,11 @@ class Redsquare: public GameObject {
     /**/
     if (camera.x < 0) { camera.x = 0; }
     if (camera.y < 0) { camera.y = 0; }
-    if (camera.x > (global.LEVELWIDTH() - camera.w)) {
-      camera.x = (global.LEVELWIDTH() - camera.w);
+    if (camera.x > (global.LEVEL_W() - camera.w)) {
+      camera.x = (global.LEVEL_W() - camera.w);
     }
-    if (camera.y >(global.LEVELHEIGHT() - camera.h)) {
-      camera.y = (global.LEVELHEIGHT() - camera.h);
+    if (camera.y >(global.LEVEL_H() - camera.h)) {
+      camera.y = (global.LEVEL_H() - camera.h);
     } 
   }
 
@@ -145,11 +145,33 @@ class Redsquare: public GameObject {
   /**/
   void DrawCamView(int x, int y) 
   {
-    SDL_Rect test = {rect.x - x, rect.y - y,rect.w, rect.h };
-    SDL_RenderCopy(renderer, render.GetState(), NULL, &test);
+    SDL_Rect cam = {rect.x - x, rect.y - y,
+                     rect.w, rect.h };
+    SDL_RenderCopy(renderer, render.GetState(),
+                   NULL, &cam);
   }
 };
 
+class Trees: public GameObject{
+  private:
+  SDL_Texture* texture;
+  public:
+  void SetTreeTexture(std::string texturePath) {
+    texture = LoadTexture(texturePath);
+    render.SetState(texture);
+  }
+  void Update() {
+
+  }
+  void DrawPosition(int x, int y) {
+    SDL_Rect pos = {rect.x - x, rect.y- y,
+        rect.w, rect.h};
+    SDL_RenderCopy(renderer, render.GetState(),
+                   NULL, &pos);
+  }
+  
+
+};
 #endif //!GAMEOBJECT
 
 /*

@@ -3,8 +3,8 @@
 
 
 bool Physics::CheckWindowCollision(const SDL_Rect & rect) {
-  if (rect.x < 0 || ((rect.x + rect.w) > 1920)
-    || rect.y < 0 || ((rect.y + rect.h) > 1080)) {
+  if (rect.x < 0 || ((rect.x + rect.w) > global.LEVEL_W())
+    || rect.y < 0 || ((rect.y + rect.h) > global.LEVEL_H())) {
     return true;
   }
 
@@ -12,14 +12,14 @@ bool Physics::CheckWindowCollision(const SDL_Rect & rect) {
 }
 
 bool Physics::CheckWidthCollision(const SDL_Rect & rect) {
-  if (rect.x < 0 || ((rect.x + rect.w) > global.LEVELWIDTH())) {
+  if (rect.x < 0 || ((rect.x + rect.w) > global.LEVEL_W())) {
     return true;
   }
 
   return false;
 }
 bool Physics::CheckHeightCollision(const SDL_Rect & rect) {
-  if (rect.y < 0 || ((rect.y + rect.h) > global.LEVELHEIGHT())) {
+  if (rect.y < 0 || ((rect.y + rect.h) > global.LEVEL_H())) {
     return true;
   }
 
@@ -63,7 +63,7 @@ bool Physics::CheckObjectCollision(const SDL_Rect& a,
   if (leftA >= rightB) {
     return false;
   }
-
+  std::cout << "HIT\n";
   //If none of the sides from A are outside B
   return true;
 }
