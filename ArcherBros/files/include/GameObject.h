@@ -106,14 +106,14 @@ class Redsquare: public GameObject {
   void Collision() {
 
     if (collision) {
-      velocity.x = 0;
-      velocity.y = 0;
+      rect.x -= velocity.x;
+      rect.y -= velocity.y;
       std::cout << "Collision\n";
 
     }
     if (physics.CheckWindowCollision(FutureRect())) {
-      velocity.x = 0;
-      velocity.y = 0;
+      rect.x -= velocity.x;
+      rect.y -= velocity.y;
       std::cout << "Wall Collision\n";
     }
   }
